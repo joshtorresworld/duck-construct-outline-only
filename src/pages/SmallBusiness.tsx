@@ -278,6 +278,16 @@ const SmallBusiness = () => {
       {/* Roofing & Construction Blueprint */}
       <RoofingBlueprint />
 
+      {/* Additional Industry Blueprints */}
+      <HealthcareBlueprint />
+      <LegalBlueprint />
+      <RealEstateBlueprint />
+      <AccountingBlueprint />
+      <VeterinaryBlueprint />
+      <RestaurantBlueprint />
+      <AutoRepairBlueprint />
+      <InsuranceBlueprint />
+
       {/* Implementation Roadmap */}
       <section className="py-16 bg-surface-sunken">
         <div className="container">
