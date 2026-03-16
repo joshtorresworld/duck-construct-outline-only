@@ -2,6 +2,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import AgenticDataSection from "@/components/AgenticDataSection";
 import SmallOfficeBlueprint from "@/components/SmallOfficeBlueprint";
+import RoofingBlueprint from "@/components/RoofingBlueprint";
 import { motion } from "framer-motion";
 import {
   Database,
@@ -265,6 +266,9 @@ const SmallBusiness = () => {
 
       {/* 5-Person Office Blueprint */}
       <SmallOfficeBlueprint />
+
+      {/* Roofing & Construction Blueprint */}
+      <RoofingBlueprint />
 
       {/* Implementation Roadmap */}
       <section className="py-16 bg-surface-sunken">
