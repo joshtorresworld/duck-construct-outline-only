@@ -1,6 +1,7 @@
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import AgenticDataSection from "@/components/AgenticDataSection";
+import SmallOfficeBlueprint from "@/components/SmallOfficeBlueprint";
 import { motion } from "framer-motion";
 import {
   Database,
@@ -261,6 +262,9 @@ const SmallBusiness = () => {
 
       {/* Agentic AI Deep Dive — Data Management */}
       <AgenticDataSection />
+
+      {/* 5-Person Office Blueprint */}
+      <SmallOfficeBlueprint />
 
       {/* Implementation Roadmap */}
       <section className="py-16 bg-surface-sunken">
