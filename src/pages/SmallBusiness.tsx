@@ -3,6 +3,14 @@ import Footer from "@/components/Footer";
 import AgenticDataSection from "@/components/AgenticDataSection";
 import SmallOfficeBlueprint from "@/components/SmallOfficeBlueprint";
 import RoofingBlueprint from "@/components/RoofingBlueprint";
+import HealthcareBlueprint from "@/components/blueprints/HealthcareBlueprint";
+import LegalBlueprint from "@/components/blueprints/LegalBlueprint";
+import RealEstateBlueprint from "@/components/blueprints/RealEstateBlueprint";
+import AccountingBlueprint from "@/components/blueprints/AccountingBlueprint";
+import VeterinaryBlueprint from "@/components/blueprints/VeterinaryBlueprint";
+import RestaurantBlueprint from "@/components/blueprints/RestaurantBlueprint";
+import AutoRepairBlueprint from "@/components/blueprints/AutoRepairBlueprint";
+import InsuranceBlueprint from "@/components/blueprints/InsuranceBlueprint";
 import { motion } from "framer-motion";
 import {
   Database,
