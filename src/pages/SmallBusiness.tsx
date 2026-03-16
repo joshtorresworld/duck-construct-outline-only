@@ -259,6 +259,9 @@ const SmallBusiness = () => {
         </div>
       </section>
 
+      {/* Agentic AI Deep Dive — Data Management */}
+      <AgenticDataSection />
+
       {/* Implementation Roadmap */}
       <section className="py-16 bg-surface-sunken">
         <div className="container">
