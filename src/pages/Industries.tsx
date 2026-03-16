@@ -250,9 +250,7 @@ const industries: IndustryCard[] = [
   },
 ];
 
-/* ── Lazy imports ────────────────────────────────────── */
-
-import { lazy, Suspense } from "react";
+/* ── Animation helpers ───────────────────────────────── */
 
 /* ── Animation helpers ───────────────────────────────── */
 
