@@ -11,6 +11,12 @@ import VeterinaryBlueprint from "@/components/blueprints/VeterinaryBlueprint";
 import RestaurantBlueprint from "@/components/blueprints/RestaurantBlueprint";
 import AutoRepairBlueprint from "@/components/blueprints/AutoRepairBlueprint";
 import InsuranceBlueprint from "@/components/blueprints/InsuranceBlueprint";
+import MarketingAgencyBlueprint from "@/components/blueprints/MarketingAgencyBlueprint";
+import BusinessCoachingBlueprint from "@/components/blueprints/BusinessCoachingBlueprint";
+import EducationBlueprint from "@/components/blueprints/EducationBlueprint";
+import ITConsultingBlueprint from "@/components/blueprints/ITConsultingBlueprint";
+import CreativeAgencyBlueprint from "@/components/blueprints/CreativeAgencyBlueprint";
+import HRStaffingBlueprint from "@/components/blueprints/HRStaffingBlueprint";
 import { motion } from "framer-motion";
 import {
   Database,
