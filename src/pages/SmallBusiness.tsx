@@ -263,29 +263,32 @@ const SmallBusiness = () => {
       {/* Agentic AI Deep Dive — Data Management */}
       <AgenticDataSection />
 
-      {/* 5-Person Office Blueprint */}
-      <SmallOfficeBlueprint />
-
-      {/* Roofing & Construction Blueprint */}
-      <RoofingBlueprint />
-
-      {/* Additional Industry Blueprints */}
-      <HealthcareBlueprint />
-      <LegalBlueprint />
-      <RealEstateBlueprint />
-      <AccountingBlueprint />
-      <VeterinaryBlueprint />
-      <RestaurantBlueprint />
-      <AutoRepairBlueprint />
-      <InsuranceBlueprint />
-
-      {/* Freelance & Consulting Agency Blueprints */}
-      <MarketingAgencyBlueprint />
-      <BusinessCoachingBlueprint />
-      <EducationBlueprint />
-      <ITConsultingBlueprint />
-      <CreativeAgencyBlueprint />
-      <HRStaffingBlueprint />
+      {/* Industry Blueprints CTA */}
+      <section className="py-16 bg-surface-sunken">
+        <div className="container">
+          <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+            <div>
+              <p className="text-xs font-medium uppercase tracking-widest text-muted-foreground mb-2">
+                Industry Blueprints
+              </p>
+              <h2 className="text-2xl font-semibold text-foreground mb-2">
+                16 Industry-Specific Transformation Blueprints
+              </h2>
+              <p className="text-sm text-muted-foreground max-w-lg">
+                From healthcare to restaurants, legal practices to marketing agencies — explore
+                detailed before-and-after workflows, 8-week implementation plans, and projected ROI
+                for your specific industry.
+              </p>
+            </div>
+            <Link
+              to="/industries"
+              className="inline-flex items-center gap-2 rounded-sm bg-foreground px-5 py-2.5 text-sm font-semibold text-background hover:opacity-90 transition-opacity shrink-0"
+            >
+              Browse All Blueprints <ArrowRight className="w-4 h-4" strokeWidth={1.5} />
+            </Link>
+          </div>
+        </div>
+      </section>
 
       {/* Implementation Roadmap */}
       <section className="py-16 bg-surface-sunken">
