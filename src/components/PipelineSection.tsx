@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Database, Shield, RefreshCw, ArrowRight, CheckCircle2 } from "lucide-react";
+import { Database, Shield, RefreshCw, ArrowRight, CheckCircle2, Zap } from "lucide-react";
 
 const steps = [
   {
@@ -11,6 +11,12 @@ const steps = [
     description: "Comprehensive solutions for storing, protecting, and optimizing enterprise data assets across your organization.",
     features: ["Centralized repositories", "Automated governance", "Policy enforcement"],
     outcomes: ["40% reduction in data silos", "99.9% data availability", "Unified data catalog"],
+    partnerIntegration: {
+      provider: "Zantaz",
+      link: "/zantaz",
+      solutions: ["AI Smart Data Refinery", "AI Data Feeder + Smart Mirroring", "ROT elimination before analytics"],
+      impact: "60% storage & compute savings",
+    },
   },
   {
     number: "02",
@@ -21,6 +27,12 @@ const steps = [
     description: "Multi-layered security frameworks that anticipate and neutralize threats before they impact operations.",
     features: ["Compliance automation", "Risk assessment", "Threat detection"],
     outcomes: ["Zero-trust architecture", "SOC 2 / ISO 27001 ready", "Real-time threat intel"],
+    partnerIntegration: {
+      provider: "Zantaz",
+      link: "/zantaz",
+      solutions: ["AI-Ready Archiving for M365", "AI Smart Legal for litigation", "SEC 17a-4, FINRA, GDPR compliance"],
+      impact: "Full regulatory confidence",
+    },
   },
   {
     number: "03",
@@ -31,6 +43,12 @@ const steps = [
     description: "Ensure uninterrupted operations with robust disaster recovery and business continuity solutions.",
     features: ["Rapid recovery", "Minimal downtime", "Data integrity"],
     outcomes: ["< 15 min RTO", "99.99% uptime SLA", "Geo-redundant backups"],
+    partnerIntegration: {
+      provider: "Zantaz",
+      link: "/zantaz",
+      solutions: ["Retention-policy governance", "Geo-redundant archiving", "Copilot production readiness"],
+      impact: "AI-ready disaster recovery",
+    },
   },
 ];
 
@@ -124,13 +142,38 @@ const PipelineSection = () => {
                     </div>
                   </div>
 
-                  {/* Action */}
+                  {/* Partner Integration */}
                   <div className="px-5 py-3 border-t border-foreground/5">
+                    <p className="text-xs font-medium uppercase tracking-wider text-muted-foreground mb-2">
+                      <Zap className="w-3 h-3 inline-block mr-1 text-accent" strokeWidth={1.5} />
+                      Powered by {step.partnerIntegration.provider}
+                    </p>
+                    <ul className="space-y-1 mb-2">
+                      {step.partnerIntegration.solutions.map((s) => (
+                        <li key={s} className="flex items-center gap-2 text-xs text-muted-foreground">
+                          <CheckCircle2 className="w-3 h-3 text-accent shrink-0" strokeWidth={1.5} />
+                          {s}
+                        </li>
+                      ))}
+                    </ul>
+                    <span className="inline-flex items-center rounded-sm bg-accent/10 px-2 py-0.5 text-xs font-medium text-accent">
+                      {step.partnerIntegration.impact}
+                    </span>
+                  </div>
+
+                  {/* Action */}
+                  <div className="px-5 py-3 border-t border-foreground/5 flex items-center justify-between">
                     <a
                       href="mailto:patrick@rowofducks.ai"
                       className="inline-flex items-center gap-1 text-xs font-medium text-logic hover:underline"
                     >
                       Learn more <ArrowRight className="w-3 h-3" strokeWidth={1.5} />
+                    </a>
+                    <a
+                      href={step.partnerIntegration.link}
+                      className="inline-flex items-center gap-1 text-xs font-medium text-accent hover:underline"
+                    >
+                      {step.partnerIntegration.provider} <ArrowRight className="w-3 h-3" strokeWidth={1.5} />
                     </a>
                   </div>
                 </div>
