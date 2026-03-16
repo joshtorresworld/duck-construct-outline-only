@@ -263,6 +263,9 @@ const SmallBusiness = () => {
       {/* Agentic AI Deep Dive — Data Management */}
       <AgenticDataSection />
 
+      {/* 5-Person Office Blueprint */}
+      <SmallOfficeBlueprint />
+
       {/* Implementation Roadmap */}
       <section className="py-16 bg-surface-sunken">
         <div className="container">
