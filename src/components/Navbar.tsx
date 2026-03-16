@@ -22,6 +22,9 @@ const Navbar = () => {
           <a href="/small-business" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
             Small Business
           </a>
+          <a href="/zantaz" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+            Partners
+          </a>
           <a
             href="mailto:patrick@rowofducks.ai"
             className="inline-flex items-center gap-1.5 rounded-sm bg-foreground px-3.5 py-1.5 text-sm font-medium text-background hover:opacity-90 transition-opacity"
