@@ -294,6 +294,14 @@ const SmallBusiness = () => {
       <AutoRepairBlueprint />
       <InsuranceBlueprint />
 
+      {/* Freelance & Consulting Agency Blueprints */}
+      <MarketingAgencyBlueprint />
+      <BusinessCoachingBlueprint />
+      <EducationBlueprint />
+      <ITConsultingBlueprint />
+      <CreativeAgencyBlueprint />
+      <HRStaffingBlueprint />
+
       {/* Implementation Roadmap */}
       <section className="py-16 bg-surface-sunken">
         <div className="container">
