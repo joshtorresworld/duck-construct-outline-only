@@ -267,6 +267,9 @@ const SmallBusiness = () => {
       {/* 5-Person Office Blueprint */}
       <SmallOfficeBlueprint />
 
+      {/* Roofing & Construction Blueprint */}
+      <RoofingBlueprint />
+
       {/* Implementation Roadmap */}
       <section className="py-16 bg-surface-sunken">
         <div className="container">
