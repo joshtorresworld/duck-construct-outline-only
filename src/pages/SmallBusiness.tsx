@@ -1,5 +1,6 @@
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import AgenticDataSection from "@/components/AgenticDataSection";
 import { motion } from "framer-motion";
 import {
   Database,
