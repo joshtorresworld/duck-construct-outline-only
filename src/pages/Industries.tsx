@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, lazy, Suspense } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { motion, AnimatePresence } from "framer-motion";
@@ -250,9 +250,7 @@ const industries: IndustryCard[] = [
   },
 ];
 
-/* ── Lazy imports ────────────────────────────────────── */
-
-import { lazy, Suspense } from "react";
+/* ── Animation helpers ───────────────────────────────── */
 
 /* ── Animation helpers ───────────────────────────────── */
 
