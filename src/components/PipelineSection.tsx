@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Database, Shield, RefreshCw, ArrowRight, CheckCircle2, Zap } from "lucide-react";
+import { Database, Shield, RefreshCw, ArrowRight, CheckCircle2, Zap, Scale } from "lucide-react";
 
 const steps = [
   {
@@ -17,6 +17,15 @@ const steps = [
       solutions: ["AI Smart Data Refinery", "AI Data Feeder + Smart Mirroring", "ROT elimination before analytics"],
       impact: "60% storage & compute savings",
     },
+    legalHub: {
+      pillar: "Trusted Data Refinery",
+      description: "Scans client data in-place to add context and classification, eliminating up to 60% of ROT before it reaches review platforms like Relativity or DISCO.",
+      points: [
+        "Systematic ROT identification & elimination",
+        "Attorney-ready Trusted Data Collections",
+        "Organized chronologies & issue maps before billable review",
+      ],
+    },
   },
   {
     number: "02",
@@ -33,6 +42,15 @@ const steps = [
       solutions: ["AI-Ready Archiving for M365", "AI Smart Legal for litigation", "SEC 17a-4, FINRA, GDPR compliance"],
       impact: "Full regulatory confidence",
     },
+    legalHub: {
+      pillar: "Trusted Data Portal",
+      description: "Secure intake and operational control plane with Model Context Protocol (MCP) that ironclad protects attorney-client privilege.",
+      points: [
+        "Universal Drop Zone with immutable chain of custody",
+        "Privilege-Enforcing AI via MCP governance",
+        "Defensible audit trail of every AI action",
+      ],
+    },
   },
   {
     number: "03",
@@ -48,6 +66,15 @@ const steps = [
       link: "/zantaz",
       solutions: ["Retention-policy governance", "Geo-redundant archiving", "Copilot production readiness"],
       impact: "AI-ready disaster recovery",
+    },
+    legalHub: {
+      pillar: "Trusted Data Archive",
+      description: "Real-time, compliance-grade journal archiving that captures the complete envelope of communications — including BCCs and distribution lists often lost in standard exports.",
+      points: [
+        "Immutable evidentiary-grade preservation",
+        "Complete metadata capture (BCCs, distribution lists)",
+        "Legally defensible foundation for AI reasoning",
+      ],
     },
   },
 ];
@@ -142,7 +169,7 @@ const PipelineSection = () => {
                     </div>
                   </div>
 
-                  {/* Partner Integration */}
+                  {/* Partner Integration — Smart Stack */}
                   <div className="px-5 py-3 border-t border-foreground/5">
                     <p className="text-xs font-medium uppercase tracking-wider text-muted-foreground mb-2">
                       <Zap className="w-3 h-3 inline-block mr-1 text-accent" strokeWidth={1.5} />
@@ -158,6 +185,28 @@ const PipelineSection = () => {
                     </ul>
                     <span className="inline-flex items-center rounded-sm bg-accent/10 px-2 py-0.5 text-xs font-medium text-accent">
                       {step.partnerIntegration.impact}
+                    </span>
+                  </div>
+
+                  {/* Legal HUB Pillar */}
+                  <div className="px-5 py-3 border-t border-foreground/5 bg-primary/[0.03]">
+                    <p className="text-xs font-medium uppercase tracking-wider text-muted-foreground mb-1.5">
+                      <Scale className="w-3 h-3 inline-block mr-1 text-primary" strokeWidth={1.5} />
+                      Legal HUB — {step.legalHub.pillar}
+                    </p>
+                    <p className="text-xs text-muted-foreground leading-relaxed mb-2">
+                      {step.legalHub.description}
+                    </p>
+                    <ul className="space-y-1">
+                      {step.legalHub.points.map((p) => (
+                        <li key={p} className="flex items-center gap-2 text-xs text-muted-foreground">
+                          <CheckCircle2 className="w-3 h-3 text-primary shrink-0" strokeWidth={1.5} />
+                          {p}
+                        </li>
+                      ))}
+                    </ul>
+                    <span className="inline-flex items-center gap-1 mt-2 rounded-sm bg-primary/10 px-2 py-0.5 text-xs font-medium text-primary">
+                      Launching April 2026
                     </span>
                   </div>
 
