@@ -7,6 +7,9 @@ import Index from "./pages/Index.tsx";
 import SmallBusiness from "./pages/SmallBusiness.tsx";
 import Industries from "./pages/Industries.tsx";
 import Zantaz from "./pages/Zantaz.tsx";
+import CustomerAcquisition from "./pages/CustomerAcquisition.tsx";
+import DiscoverySurvey from "./pages/DiscoverySurvey.tsx";
+import Onboarding from "./pages/Onboarding.tsx";
 import NotFound from "./pages/NotFound.tsx";
 
 const queryClient = new QueryClient();
