@@ -7,6 +7,9 @@ import Index from "./pages/Index.tsx";
 import SmallBusiness from "./pages/SmallBusiness.tsx";
 import Industries from "./pages/Industries.tsx";
 import Zantaz from "./pages/Zantaz.tsx";
+import CustomerAcquisition from "./pages/CustomerAcquisition.tsx";
+import DiscoverySurvey from "./pages/DiscoverySurvey.tsx";
+import Onboarding from "./pages/Onboarding.tsx";
 import NotFound from "./pages/NotFound.tsx";
 
 const queryClient = new QueryClient();
@@ -21,6 +24,9 @@ const App = () => (
           <Route path="/" element={<Index />} />
           <Route path="/small-business" element={<SmallBusiness />} />
           <Route path="/industries" element={<Industries />} />
+          <Route path="/customer-acquisition" element={<CustomerAcquisition />} />
+          <Route path="/discovery-survey" element={<DiscoverySurvey />} />
+          <Route path="/onboarding" element={<Onboarding />} />
           <Route path="/zantaz" element={<Zantaz />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
