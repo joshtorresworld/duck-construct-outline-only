@@ -52,29 +52,46 @@ const onboardingPhases: OnboardingPhase[] = [
   },
   {
     week: "Week 1–2",
-    phase: "Operations Audit & Data Migration",
+    phase: "Operations Audit & Bidirectional Integration Mapping",
     icon: FileSearch,
     color: "text-accent",
     bgColor: "bg-accent/10",
     borderColor: "border-accent/20",
     owner: "Solutions Architect",
-    description: "Deep-dive into the client's current workflows, map data sources, and begin integration setup.",
+    description: "Deep-dive into the client's current workflows, map every data source, and architect bidirectional API integrations with all existing vendor systems.",
     backOfficeActions: [
       "Conduct detailed workflow mapping sessions (2–3 hours)",
-      "Document current tech stack and data flows",
-      "Identify integration points (CRM, ERP, scheduling, billing)",
-      "Build data migration plan and validate data quality",
-      "Configure API connections and test data sync",
+      "Inventory ALL existing vendor systems — CRM, ERP, PMS, scheduling, billing, POS, etc.",
+      "Validate API availability and authentication methods for each vendor system",
+      "Design bidirectional data flow architecture — what reads, what writes, what syncs both ways",
+      "Configure webhook listeners for real-time inbound data from client systems",
+      "Build outbound write-back connectors to push AI agent outputs into client's existing tools",
+      "Define conflict resolution rules for two-way sync (last-write-wins, merge, manual review)",
+      "Test round-trip data integrity — write to client system → read back → validate match",
       "Map industry-specific regulatory requirements to agent configurations",
+      "Document vendor API rate limits, data format requirements, and error handling",
     ],
     clientActions: [
       "Participate in workflow mapping sessions",
+      "Provide API credentials and admin access to all vendor systems",
       "Provide historical data exports (12+ months)",
       "Identify edge cases and exceptions in current processes",
-      "Approve data mapping and migration plan",
+      "Approve bidirectional integration architecture and data flow diagram",
     ],
-    deliverables: ["Workflow map document", "Integration architecture diagram", "Data migration plan", "Regulatory compliance checklist"],
-    successMetrics: ["100% of integrations mapped", "Data quality score >90%", "Client signs off on workflow map"],
+    deliverables: [
+      "Bidirectional integration architecture diagram",
+      "Vendor API inventory with read/write capabilities",
+      "Data flow map (inbound + outbound per system)",
+      "Conflict resolution rulebook",
+      "Data migration plan",
+      "Regulatory compliance checklist",
+    ],
+    successMetrics: [
+      "100% of vendor systems mapped with API access confirmed",
+      "Bidirectional data flow validated for all critical integrations",
+      "Data quality score >90%",
+      "Client signs off on integration architecture",
+    ],
   },
   {
     week: "Week 3–4",
@@ -84,14 +101,17 @@ const onboardingPhases: OnboardingPhase[] = [
     bgColor: "bg-warning/10",
     borderColor: "border-warning/20",
     owner: "Technical Lead",
-    description: "Deploy the first wave of AI agents — scheduling, client management, and core automation.",
+    description: "Deploy the first wave of AI agents with live bidirectional connections to the client's existing vendor systems.",
     backOfficeActions: [
       "Deploy scheduling/dispatch agent with client's business rules",
+      "Activate bidirectional sync — agents write back to client's CRM/ERP/PMS in real-time",
       "Configure client communication agent (SMS, email, notifications)",
-      "Set up billing/invoicing automation with payment gateway",
-      "Build custom dashboards for client KPI tracking",
+      "Set up billing/invoicing automation with bidirectional payment gateway sync",
+      "Validate round-trip data integrity across all connected vendor systems",
+      "Build custom dashboards pulling live data from both agent platform AND client systems",
       "Run parallel processing (AI + manual) for first 5 business days",
-      "QA test all agent outputs against historical results",
+      "QA test all agent outputs AND write-backs against historical results",
+      "Verify webhook reliability — inbound events from client systems trigger agents correctly",
     ],
     clientActions: [
       "Participate in agent training sessions (1 hour each)",
@@ -245,6 +265,97 @@ const Onboarding = () => {
                 </motion.div>
               ))}
             </div>
+          </div>
+        </section>
+
+        {/* Bidirectional Integration Methodology */}
+        <section className="container mx-auto px-4 mb-16">
+          <div className="max-w-5xl mx-auto">
+            <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
+              <h2 className="text-2xl font-bold mb-2 text-center">Bidirectional Integration Methodology</h2>
+              <p className="text-muted-foreground text-center mb-8 max-w-3xl mx-auto">
+                Our agents don't just read from your systems — they write back. Every integration is architected 
+                for full two-way data flow with your existing vendor stack.
+              </p>
+              <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
+                {[
+                  {
+                    title: "Inbound Sync",
+                    icon: ArrowRight,
+                    color: "text-primary",
+                    bgColor: "bg-primary/10",
+                    borderColor: "border-primary/20",
+                    items: [
+                      "Webhooks from CRM/ERP/PMS trigger agent actions in real-time",
+                      "Scheduled pulls for systems without webhook support",
+                      "Change detection for database-level sync",
+                      "Event-driven architecture — zero polling lag",
+                    ],
+                  },
+                  {
+                    title: "Outbound Write-Back",
+                    icon: ArrowRight,
+                    color: "text-accent",
+                    bgColor: "bg-accent/10",
+                    borderColor: "border-accent/20",
+                    items: [
+                      "Agent outputs written directly to client's existing tools",
+                      "Appointments created in THEIR calendar system",
+                      "Invoices pushed to THEIR accounting platform",
+                      "Patient/client records updated in THEIR EHR/CRM",
+                    ],
+                  },
+                  {
+                    title: "Conflict Resolution",
+                    icon: Shield,
+                    color: "text-warning",
+                    bgColor: "bg-warning/10",
+                    borderColor: "border-warning/20",
+                    items: [
+                      "Timestamp-based last-write-wins for non-critical fields",
+                      "Manual review queue for critical data conflicts",
+                      "Audit trail for every bidirectional write",
+                      "Rollback capability for sync errors",
+                    ],
+                  },
+                  {
+                    title: "Vendor API Coverage",
+                    icon: Settings,
+                    color: "text-success",
+                    bgColor: "bg-success/10",
+                    borderColor: "border-success/20",
+                    items: [
+                      "Pre-built connectors for 200+ industry platforms",
+                      "REST, GraphQL, SOAP, and HL7/FHIR support",
+                      "OAuth2, API key, and token-based auth",
+                      "Custom connector development for legacy systems",
+                    ],
+                  },
+                ].map((pillar, i) => (
+                  <motion.div
+                    key={pillar.title}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: i * 0.08 }}
+                    className={`rounded-xl border ${pillar.borderColor} ${pillar.bgColor} p-5`}
+                  >
+                    <div className={`w-8 h-8 rounded-lg ${pillar.bgColor} border ${pillar.borderColor} flex items-center justify-center mb-3`}>
+                      <pillar.icon className={`w-4 h-4 ${pillar.color}`} />
+                    </div>
+                    <h3 className="font-bold text-foreground text-sm mb-3">{pillar.title}</h3>
+                    <ul className="space-y-2">
+                      {pillar.items.map((item, j) => (
+                        <li key={j} className="flex items-start gap-2 text-xs text-muted-foreground">
+                          <CheckCircle2 className={`w-3 h-3 mt-0.5 flex-shrink-0 ${pillar.color}`} />
+                          {item}
+                        </li>
+                      ))}
+                    </ul>
+                  </motion.div>
+                ))}
+              </div>
+            </motion.div>
           </div>
         </section>
 
