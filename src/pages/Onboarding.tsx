@@ -268,6 +268,97 @@ const Onboarding = () => {
           </div>
         </section>
 
+        {/* Bidirectional Integration Methodology */}
+        <section className="container mx-auto px-4 mb-16">
+          <div className="max-w-5xl mx-auto">
+            <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
+              <h2 className="text-2xl font-bold mb-2 text-center">Bidirectional Integration Methodology</h2>
+              <p className="text-muted-foreground text-center mb-8 max-w-3xl mx-auto">
+                Our agents don't just read from your systems — they write back. Every integration is architected 
+                for full two-way data flow with your existing vendor stack.
+              </p>
+              <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
+                {[
+                  {
+                    title: "Inbound Sync",
+                    icon: ArrowRight,
+                    color: "text-primary",
+                    bgColor: "bg-primary/10",
+                    borderColor: "border-primary/20",
+                    items: [
+                      "Webhooks from CRM/ERP/PMS trigger agent actions in real-time",
+                      "Scheduled pulls for systems without webhook support",
+                      "Change detection for database-level sync",
+                      "Event-driven architecture — zero polling lag",
+                    ],
+                  },
+                  {
+                    title: "Outbound Write-Back",
+                    icon: ArrowRight,
+                    color: "text-accent",
+                    bgColor: "bg-accent/10",
+                    borderColor: "border-accent/20",
+                    items: [
+                      "Agent outputs written directly to client's existing tools",
+                      "Appointments created in THEIR calendar system",
+                      "Invoices pushed to THEIR accounting platform",
+                      "Patient/client records updated in THEIR EHR/CRM",
+                    ],
+                  },
+                  {
+                    title: "Conflict Resolution",
+                    icon: Shield,
+                    color: "text-warning",
+                    bgColor: "bg-warning/10",
+                    borderColor: "border-warning/20",
+                    items: [
+                      "Timestamp-based last-write-wins for non-critical fields",
+                      "Manual review queue for critical data conflicts",
+                      "Audit trail for every bidirectional write",
+                      "Rollback capability for sync errors",
+                    ],
+                  },
+                  {
+                    title: "Vendor API Coverage",
+                    icon: Settings,
+                    color: "text-success",
+                    bgColor: "bg-success/10",
+                    borderColor: "border-success/20",
+                    items: [
+                      "Pre-built connectors for 200+ industry platforms",
+                      "REST, GraphQL, SOAP, and HL7/FHIR support",
+                      "OAuth2, API key, and token-based auth",
+                      "Custom connector development for legacy systems",
+                    ],
+                  },
+                ].map((pillar, i) => (
+                  <motion.div
+                    key={pillar.title}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: i * 0.08 }}
+                    className={`rounded-xl border ${pillar.borderColor} ${pillar.bgColor} p-5`}
+                  >
+                    <div className={`w-8 h-8 rounded-lg ${pillar.bgColor} border ${pillar.borderColor} flex items-center justify-center mb-3`}>
+                      <pillar.icon className={`w-4 h-4 ${pillar.color}`} />
+                    </div>
+                    <h3 className="font-bold text-foreground text-sm mb-3">{pillar.title}</h3>
+                    <ul className="space-y-2">
+                      {pillar.items.map((item, j) => (
+                        <li key={j} className="flex items-start gap-2 text-xs text-muted-foreground">
+                          <CheckCircle2 className={`w-3 h-3 mt-0.5 flex-shrink-0 ${pillar.color}`} />
+                          {item}
+                        </li>
+                      ))}
+                    </ul>
+                  </motion.div>
+                ))}
+              </div>
+            </motion.div>
+          </div>
+        </section>
+
         {/* Onboarding Phases */}
         <section className="container mx-auto px-4 mb-16">
           <div className="max-w-5xl mx-auto">
