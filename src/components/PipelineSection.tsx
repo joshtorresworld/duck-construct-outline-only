@@ -93,9 +93,12 @@ const PipelineSection = () => {
           <p className="text-xs font-medium uppercase tracking-widest text-muted-foreground mb-2">
             Execution Pipeline
           </p>
-          <h2 className="text-2xl font-semibold text-foreground">
+          <h2 className="text-2xl font-semibold text-foreground mb-2">
             Enterprise Solutions That Drive Results
           </h2>
+          <p className="text-sm text-muted-foreground max-w-lg">
+            This isn't a technology rollout. It's an operating model transformation that happens to involve technology. We build the workflows that turn AI from a pilot into production.
+          </p>
         </div>
 
         {/* Pipeline connector line */}
