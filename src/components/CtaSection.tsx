@@ -10,8 +10,8 @@ const CtaSection = () => {
               Ready to get your ducks in a row?
             </h2>
             <p className="text-sm text-background/60 max-w-md">
-              Transform scattered information into a powerful, synchronized formation.
-              Let's build your execution pipeline.
+              Every month you wait, your competitors pull further ahead. The companies that get AI right now
+              won't just win — they'll be nearly untouchable. Let's build your execution pipeline before the window closes.
             </p>
           </div>
           <a

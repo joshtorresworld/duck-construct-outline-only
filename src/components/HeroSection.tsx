@@ -33,8 +33,8 @@ const HeroSection = () => {
             transition={{ duration: 0.4, delay: 0.1, ease: [0.2, 0, 0, 1] }}
             className="text-lg text-muted-foreground max-w-xl mb-8"
           >
-            Deterministic AI workflows for teams that can't afford hallucinations.
-            We optimize, augment, and innovate — one duck at a time.
+            In less than three years, the companies that get AI right will be nearly impossible to compete with.
+            We make sure you're one of them — with deterministic AI workflows that optimize, augment, and innovate your operations.
           </motion.p>
 
           <motion.div

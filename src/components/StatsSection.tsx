@@ -19,7 +19,7 @@ const StatsSection = () => {
             Results That Speak
           </h2>
           <p className="text-sm text-muted-foreground max-w-lg">
-            At Row of Ducks, we understand that in today's data-driven world, having your data organized and optimized is essential. Our mission is to help your data take flight.
+            The gap between AI-ready companies and everyone else is widening every quarter. Our clients aren't just keeping up — they're building operational moats that will be nearly impossible to replicate in 36 months.
           </p>
         </div>
 
