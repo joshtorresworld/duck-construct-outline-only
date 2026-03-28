@@ -13,8 +13,8 @@ const HeroSection = () => {
             className="mb-4"
           >
             <span className="inline-flex items-center gap-1.5 rounded-sm bg-primary/10 px-2.5 py-1 text-xs font-medium text-foreground">
-              <span className="w-1.5 h-1.5 rounded-full bg-primary" />
-              Enterprise AI Operations
+              <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
+              The AI window is closing — are you ready?
             </span>
           </motion.div>
 
@@ -24,7 +24,7 @@ const HeroSection = () => {
             transition={{ duration: 0.4, delay: 0.05, ease: [0.2, 0, 0, 1] }}
             className="text-2xl md:text-[2rem] font-semibold text-foreground leading-tight tracking-tight mb-4 text-balance"
           >
-            Get your operations in order.
+            It's not who has the biggest budget. It's who gets AI right first.
           </motion.h1>
 
           <motion.p
@@ -33,8 +33,8 @@ const HeroSection = () => {
             transition={{ duration: 0.4, delay: 0.1, ease: [0.2, 0, 0, 1] }}
             className="text-lg text-muted-foreground max-w-xl mb-8"
           >
-            Deterministic AI workflows for teams that can't afford hallucinations.
-            We optimize, augment, and innovate — one duck at a time.
+            In less than three years, the companies that get AI right will be nearly impossible to compete with.
+            We make sure you're one of them — with deterministic AI workflows that optimize, augment, and innovate your operations.
           </motion.p>
 
           <motion.div

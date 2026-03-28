@@ -123,10 +123,12 @@ const AgenticDataSection = () => {
             Real Problems. Autonomous Solutions.
           </motion.h2>
           <motion.p {...anim(0.1)} className="text-sm text-muted-foreground max-w-2xl">
-            These aren't hypothetical — they're the exact data management nightmares we hear from
-            small business owners every week. Agentic AI doesn't just analyze your data; it
-            <span className="text-foreground font-medium"> acts on it autonomously</span>, handling
-            the repetitive work so your team can focus on growth.
+            These aren't hypothetical — they're the exact nightmares we hear every week. The businesses
+            solving these problems now will have a
+            <span className="text-foreground font-medium"> 3-year head start</span> that competitors
+            can't buy their way out of. Agentic AI doesn't just analyze your data; it
+            <span className="text-foreground font-medium"> acts on it autonomously</span>, compounding
+            your advantage every single day.
           </motion.p>
         </div>
 
