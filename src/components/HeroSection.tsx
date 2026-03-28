@@ -24,7 +24,7 @@ const HeroSection = () => {
             transition={{ duration: 0.4, delay: 0.05, ease: [0.2, 0, 0, 1] }}
             className="text-2xl md:text-[2rem] font-semibold text-foreground leading-tight tracking-tight mb-4 text-balance"
           >
-            Get your operations in order.
+            It's not who has the biggest budget. It's who gets AI right first.
           </motion.h1>
 
           <motion.p
