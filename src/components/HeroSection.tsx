@@ -13,8 +13,8 @@ const HeroSection = () => {
             className="mb-4"
           >
             <span className="inline-flex items-center gap-1.5 rounded-sm bg-primary/10 px-2.5 py-1 text-xs font-medium text-foreground">
-              <span className="w-1.5 h-1.5 rounded-full bg-primary" />
-              Enterprise AI Operations
+              <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
+              The AI window is closing — are you ready?
             </span>
           </motion.div>
 
