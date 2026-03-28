@@ -140,22 +140,23 @@ const AgenticDataSection = () => {
             </div>
             <div>
               <h3 className="text-base font-semibold text-foreground mb-2">
-                What makes Agentic AI different?
+                Closing the AI Execution Gap
               </h3>
+              <p className="text-sm text-muted-foreground mb-4">
+                The gap between what AI can do and what your company is actually doing with it is much larger than you think — and it's widening every quarter. We close that gap by solving the three things most companies are underbuilding:
+              </p>
               <div className="grid sm:grid-cols-3 gap-4">
                 <div>
-                  <p className="text-xs font-medium uppercase tracking-wider text-muted-foreground mb-1">Traditional AI</p>
-                  <p className="text-sm text-muted-foreground">You ask a question, it gives an answer. Then you do the work.</p>
+                  <p className="text-xs font-medium uppercase tracking-wider text-foreground mb-1">1. Margin, Not Novelty</p>
+                  <p className="text-sm text-muted-foreground">We target the expensive, repetitive, high-volume work nobody wants to do — that's where the economics are.</p>
                 </div>
                 <div>
-                  <p className="text-xs font-medium uppercase tracking-wider text-muted-foreground mb-1">Automation</p>
-                  <p className="text-sm text-muted-foreground">Follows rigid rules. Breaks when anything unexpected happens.</p>
+                  <p className="text-xs font-medium uppercase tracking-wider text-foreground mb-1">2. Workflow Integration</p>
+                  <p className="text-sm text-muted-foreground">A better tool doesn't change the workflow around it. We redesign the process — not just add AI to the existing one.</p>
                 </div>
                 <div>
-                  <p className="text-xs font-medium uppercase tracking-wider text-foreground mb-1">Agentic AI</p>
-                  <p className="text-sm text-foreground/80">
-                    Observes, decides, and acts — handling exceptions intelligently, escalating only when truly needed.
-                  </p>
+                  <p className="text-xs font-medium uppercase tracking-wider text-foreground mb-1">3. Frontline Buy-In</p>
+                  <p className="text-sm text-muted-foreground">Not the C-suite. Not the frontline. The middle — where initiatives go to die quietly. We build for the people whose cooperation is most required.</p>
                 </div>
               </div>
             </div>

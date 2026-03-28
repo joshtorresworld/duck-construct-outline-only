@@ -31,10 +31,12 @@ const HeroSection = () => {
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4, delay: 0.1, ease: [0.2, 0, 0, 1] }}
-            className="text-lg text-muted-foreground max-w-xl mb-8"
+            className="text-base text-muted-foreground max-w-xl mb-8 leading-relaxed"
           >
-            In less than three years, the companies that get AI right will be nearly impossible to compete with.
-            We make sure you're one of them — with deterministic AI workflows that optimize, augment, and innovate your operations.
+            Most "AI adoption" isn't adoption — it's procurement. Licenses purchased. All-hands delivered. Actual workflows changed: minimal.
+            The companies that stop calling it an AI strategy and start treating it like the
+            <span className="text-foreground font-medium"> operational transformation </span>
+            it actually is will be nearly impossible to compete with in three years.
           </motion.p>
 
           <motion.div
