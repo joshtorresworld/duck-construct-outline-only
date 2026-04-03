@@ -10,6 +10,7 @@ import Zantaz from "./pages/Zantaz.tsx";
 import CustomerAcquisition from "./pages/CustomerAcquisition.tsx";
 import DiscoverySurvey from "./pages/DiscoverySurvey.tsx";
 import Onboarding from "./pages/Onboarding.tsx";
+import ProspectRorigi from "./pages/ProspectRorigi.tsx";
 import NotFound from "./pages/NotFound.tsx";
 
 const queryClient = new QueryClient();
@@ -28,6 +29,7 @@ const App = () => (
           <Route path="/discovery-survey" element={<DiscoverySurvey />} />
           <Route path="/onboarding" element={<Onboarding />} />
           <Route path="/zantaz" element={<Zantaz />} />
+          <Route path="/prospect/rorigi" element={<ProspectRorigi />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
