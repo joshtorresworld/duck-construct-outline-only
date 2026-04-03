@@ -10,6 +10,7 @@ import Zantaz from "./pages/Zantaz.tsx";
 import CustomerAcquisition from "./pages/CustomerAcquisition.tsx";
 import DiscoverySurvey from "./pages/DiscoverySurvey.tsx";
 import Onboarding from "./pages/Onboarding.tsx";
+import ProspectRorigi from "./pages/ProspectRorigi.tsx";
 import NotFound from "./pages/NotFound.tsx";
 
 const queryClient = new QueryClient();
