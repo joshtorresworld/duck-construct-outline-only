@@ -35,10 +35,16 @@ const Navbar = () => {
             Partners
           </a>
           <a
-            href="mailto:patrick@rowofducks.ai"
+            href="/login"
+            className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+          >
+            Sign in
+          </a>
+          <a
+            href="/login"
             className="inline-flex items-center gap-1.5 rounded-sm bg-foreground px-3.5 py-1.5 text-sm font-medium text-background hover:opacity-90 transition-opacity"
           >
-            Contact <ArrowRight className="w-3.5 h-3.5" strokeWidth={1.5} />
+            Start free trial <ArrowRight className="w-3.5 h-3.5" strokeWidth={1.5} />
           </a>
         </nav>
       </div>

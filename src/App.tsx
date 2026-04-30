@@ -3,6 +3,8 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
+import { AuthProvider } from "@/contexts/AuthContext";
+import { RequireAuth, RequireTenant } from "@/components/auth/RequireAuth";
 import Index from "./pages/Index.tsx";
 import SmallBusiness from "./pages/SmallBusiness.tsx";
 import Industries from "./pages/Industries.tsx";
@@ -15,6 +17,9 @@ import CustomerAcquisition from "./pages/CustomerAcquisition.tsx";
 import DiscoverySurvey from "./pages/DiscoverySurvey.tsx";
 import Onboarding from "./pages/Onboarding.tsx";
 import ProspectRorigi from "./pages/ProspectRorigi.tsx";
+import Login from "./pages/Login.tsx";
+import Onboard from "./pages/Onboard.tsx";
+import Dashboard from "./pages/Dashboard.tsx";
 import NotFound from "./pages/NotFound.tsx";
 
 const queryClient = new QueryClient();
@@ -25,22 +30,30 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Index />} />
-          <Route path="/small-business" element={<SmallBusiness />} />
-          <Route path="/industries" element={<Industries />} />
-          <Route path="/quick-wins" element={<QuickWins />} />
-          <Route path="/week-1-ship" element={<Week1Ship />} />
-          <Route path="/integrations" element={<Integrations />} />
-          <Route path="/roi-calculator" element={<RoiCalculator />} />
-          <Route path="/customer-acquisition" element={<CustomerAcquisition />} />
-          <Route path="/discovery-survey" element={<DiscoverySurvey />} />
-          <Route path="/onboarding" element={<Onboarding />} />
-          <Route path="/zantaz" element={<Zantaz />} />
-          <Route path="/prospect/rorigi" element={<ProspectRorigi />} />
-          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-          <Route path="*" element={<NotFound />} />
-        </Routes>
+        <AuthProvider>
+          <Routes>
+            {/* Marketing */}
+            <Route path="/" element={<Index />} />
+            <Route path="/small-business" element={<SmallBusiness />} />
+            <Route path="/industries" element={<Industries />} />
+            <Route path="/quick-wins" element={<QuickWins />} />
+            <Route path="/week-1-ship" element={<Week1Ship />} />
+            <Route path="/integrations" element={<Integrations />} />
+            <Route path="/roi-calculator" element={<RoiCalculator />} />
+            <Route path="/customer-acquisition" element={<CustomerAcquisition />} />
+            <Route path="/discovery-survey" element={<DiscoverySurvey />} />
+            <Route path="/onboarding" element={<Onboarding />} />
+            <Route path="/zantaz" element={<Zantaz />} />
+            <Route path="/prospect/rorigi" element={<ProspectRorigi />} />
+
+            {/* App */}
+            <Route path="/login" element={<Login />} />
+            <Route path="/onboard" element={<RequireAuth><Onboard /></RequireAuth>} />
+            <Route path="/dashboard" element={<RequireTenant><Dashboard /></RequireTenant>} />
+
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </AuthProvider>
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>
