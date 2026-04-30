@@ -413,6 +413,24 @@ export type Database = {
         Args: { _tenant_id: string; _user_id: string }
         Returns: boolean
       }
+      provision_tenant_workspace: {
+        Args: {
+          _business_email?: string
+          _business_phone?: string
+          _industry: Database["public"]["Enums"]["tenant_industry"]
+          _monthly_price_cents?: number
+          _name: string
+          _timezone?: string
+        }
+        Returns: {
+          business_phone: string
+          id: string
+          industry: Database["public"]["Enums"]["tenant_industry"]
+          name: string
+          status: Database["public"]["Enums"]["tenant_status"]
+          trial_ends_at: string
+        }[]
+      }
     }
     Enums: {
       app_role: "owner" | "admin" | "operator" | "viewer"
