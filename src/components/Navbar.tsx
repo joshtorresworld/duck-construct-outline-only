@@ -22,6 +22,9 @@ const Navbar = () => {
           <a href="/small-business" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
             Small Business
           </a>
+          <a href="/quick-wins" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+            Quick Wins
+          </a>
           <a href="/zantaz" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
             Partners
           </a>
