@@ -1,0 +1,1 @@
+DROP FUNCTION IF EXISTS public.provision_tenant_workspace(TEXT, public.tenant_industry, TEXT, TEXT, TEXT, INTEGER);
