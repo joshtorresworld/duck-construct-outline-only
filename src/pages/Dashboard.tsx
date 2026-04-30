@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/contexts/AuthContext";
 import { Card, CardContent } from "@/components/ui/card";
@@ -29,6 +29,7 @@ const fmt = (n: number) =>
   n.toLocaleString("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 0 });
 
 const Dashboard = () => {
+  const navigate = useNavigate();
   const { user, tenant, signOut } = useAuth();
   const [stats, setStats] = useState<Stats>({
     leadsThisWeek: 0,
@@ -142,7 +143,7 @@ const Dashboard = () => {
               <p className="text-xs text-muted-foreground mb-2">
                 Connect your phone, calendar, and CRM to start capturing leads.
               </p>
-              <Button size="sm" className="rounded-sm h-7 text-xs">
+              <Button size="sm" className="rounded-sm h-7 text-xs" onClick={() => navigate("/setup")}>
                 <Plug className="w-3 h-3 mr-1" /> Open setup
               </Button>
             </div>
@@ -201,13 +202,13 @@ const Dashboard = () => {
               sub-60-second response — automatically.
             </p>
             <div className="flex flex-wrap gap-2 justify-center">
-              <Button className="rounded-sm">
+              <Button className="rounded-sm" onClick={() => navigate("/setup")}>
                 <Phone className="w-4 h-4 mr-1.5" /> Connect phone
               </Button>
-              <Button variant="outline" className="rounded-sm">
+              <Button variant="outline" className="rounded-sm" onClick={() => navigate("/setup")}>
                 <Calendar className="w-4 h-4 mr-1.5" /> Connect calendar
               </Button>
-              <Button variant="outline" className="rounded-sm">
+              <Button variant="outline" className="rounded-sm" onClick={() => navigate("/setup")}>
                 <Plug className="w-4 h-4 mr-1.5" /> Connect CRM
               </Button>
             </div>
