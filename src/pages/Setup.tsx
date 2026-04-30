@@ -113,7 +113,21 @@ const Setup = () => {
     return true;
   };
 
-  const STEPS: { key: StepKey; icon: typeof Phone; title: string; desc: string; cta: string; badge: string }[] = [
+  const liteMode = !!(s as any).lite_mode;
+  const setLiteMode = async (on: boolean) => {
+    setSaving(true);
+    const next = { ...s, lite_mode: on } as any;
+    const { error } = await supabase.from("tenants").update({ settings: next }).eq("id", tenant.id);
+    setSaving(false);
+    if (error) {
+      toast({ title: "Couldn't save", description: error.message, variant: "destructive" });
+      return;
+    }
+    await refreshTenant();
+    toast({ title: on ? "Lite Mode on" : "Lite Mode off", description: on ? "Skip integrations — go live with a hosted number." : "Full integration checklist restored." });
+  };
+
+  const FULL_STEPS: { key: StepKey; icon: typeof Phone; title: string; desc: string; cta: string; badge: string }[] = [
     { key: "phone", icon: Phone, title: "Connect phone & SMS", desc: "Add your business sending number for sub-60-second lead response.", cta: "Set phone number", badge: "Required" },
     { key: "calendar", icon: Calendar, title: "Connect calendar", desc: "Google or Outlook so the agent can auto-book appointments.", cta: "Connect calendar", badge: "Required" },
     { key: "crm", icon: Plug, title: "Connect CRM / PMS", desc: "Bidirectional sync with your existing system of record.", cta: "Choose CRM", badge: "Recommended" },
@@ -121,6 +135,12 @@ const Setup = () => {
     { key: "script", icon: MessageSquare, title: "Review agent script", desc: "Approve the first message your AI sends new leads.", cta: "Edit script", badge: "Optional" },
   ];
 
+  const LITE_STEPS: typeof FULL_STEPS = [
+    { key: "phone", icon: Phone, title: "Get a hosted phone number", desc: "We provision a number on your behalf — no Twilio account needed. Just confirm area code preference.", cta: "Get my number", badge: "Step 1" },
+    { key: "script", icon: MessageSquare, title: "Review AI script", desc: "Approve the first message your AI sends new leads. You're live the moment this is saved.", cta: "Review script", badge: "Step 2" },
+  ];
+
+  const STEPS = liteMode ? LITE_STEPS : FULL_STEPS;
   const completed = STEPS.filter((st) => isDone(st.key)).length;
 
   return (
