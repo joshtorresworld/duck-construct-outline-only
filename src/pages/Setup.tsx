@@ -27,7 +27,21 @@ import {
   Globe,
   MessageSquare,
   Circle,
+  Loader2,
 } from "lucide-react";
+
+const SavingButton = ({ saving, children, ...props }: any) => (
+  <Button {...props} disabled={props.disabled || saving}>
+    {saving && <Loader2 className="w-3.5 h-3.5 mr-1.5 animate-spin" />}
+    {saving ? "Saving…" : children}
+  </Button>
+);
+
+// Prevent closing the dialog while a save is in flight
+const guardedClose = (saving: boolean, onOpenChange: (o: boolean) => void) => (o: boolean) => {
+  if (saving && !o) return;
+  onOpenChange(o);
+};
 
 type StepKey = "phone" | "calendar" | "crm" | "sources" | "script";
 
@@ -197,7 +211,7 @@ const Setup = () => {
 const PhoneDialog = ({ open, onOpenChange, initial, onSave, saving }: any) => {
   const [number, setNumber] = useState(initial?.number || "");
   return (
-    <Dialog open={open} onOpenChange={onOpenChange}>
+    <Dialog open={open} onOpenChange={guardedClose(saving, onOpenChange)}>
       <DialogContent>
         <DialogHeader>
           <DialogTitle>Connect phone & SMS</DialogTitle>
@@ -211,10 +225,8 @@ const PhoneDialog = ({ open, onOpenChange, initial, onSave, saving }: any) => {
           <p className="text-xs text-muted-foreground">E.164 format preferred (e.g. +15551234567).</p>
         </div>
         <DialogFooter>
-          <Button variant="outline" onClick={() => onOpenChange(false)}>Cancel</Button>
-          <Button disabled={!number || saving} onClick={() => onSave({ number, provider: "twilio" })}>
-            {saving ? "Saving…" : "Save"}
-          </Button>
+          <Button variant="outline" disabled={saving} onClick={() => onOpenChange(false)}>Cancel</Button>
+          <SavingButton saving={saving} disabled={!number} onClick={() => onSave({ number, provider: "twilio" })}>Save</SavingButton>
         </DialogFooter>
       </DialogContent>
     </Dialog>
@@ -225,7 +237,7 @@ const CalendarDialog = ({ open, onOpenChange, initial, onSave, saving }: any) =>
   const [email, setEmail] = useState(initial?.email || "");
   const [provider, setProvider] = useState<"google" | "outlook">(initial?.provider || "google");
   return (
-    <Dialog open={open} onOpenChange={onOpenChange}>
+    <Dialog open={open} onOpenChange={guardedClose(saving, onOpenChange)}>
       <DialogContent>
         <DialogHeader>
           <DialogTitle>Connect calendar</DialogTitle>
@@ -250,10 +262,8 @@ const CalendarDialog = ({ open, onOpenChange, initial, onSave, saving }: any) =>
           </div>
         </div>
         <DialogFooter>
-          <Button variant="outline" onClick={() => onOpenChange(false)}>Cancel</Button>
-          <Button disabled={!email || saving} onClick={() => onSave({ email, provider })}>
-            {saving ? "Saving…" : "Save"}
-          </Button>
+          <Button variant="outline" disabled={saving} onClick={() => onOpenChange(false)}>Cancel</Button>
+          <SavingButton saving={saving} disabled={!email} onClick={() => onSave({ email, provider })}>Save</SavingButton>
         </DialogFooter>
       </DialogContent>
     </Dialog>
@@ -265,7 +275,7 @@ const CrmDialog = ({ open, onOpenChange, initial, onSave, saving }: any) => {
   const [webhook, setWebhook] = useState(initial?.webhook_url || "");
   const [apiKey, setApiKey] = useState(initial?.api_key || "");
   return (
-    <Dialog open={open} onOpenChange={onOpenChange}>
+    <Dialog open={open} onOpenChange={guardedClose(saving, onOpenChange)}>
       <DialogContent>
         <DialogHeader>
           <DialogTitle>Connect CRM / PMS</DialogTitle>
@@ -295,10 +305,8 @@ const CrmDialog = ({ open, onOpenChange, initial, onSave, saving }: any) => {
           </div>
         </div>
         <DialogFooter>
-          <Button variant="outline" onClick={() => onOpenChange(false)}>Cancel</Button>
-          <Button disabled={!type || saving} onClick={() => onSave({ type, webhook_url: webhook || undefined, api_key: apiKey || undefined })}>
-            {saving ? "Saving…" : "Save"}
-          </Button>
+          <Button variant="outline" disabled={saving} onClick={() => onOpenChange(false)}>Cancel</Button>
+          <SavingButton saving={saving} disabled={!type} onClick={() => onSave({ type, webhook_url: webhook || undefined, api_key: apiKey || undefined })}>Save</SavingButton>
         </DialogFooter>
       </DialogContent>
     </Dialog>
@@ -310,7 +318,7 @@ const SourcesDialog = ({ open, onOpenChange, initial, onSave, saving }: any) => 
   const toggle = (src: string) =>
     setSelected((prev) => (prev.includes(src) ? prev.filter((s) => s !== src) : [...prev, src]));
   return (
-    <Dialog open={open} onOpenChange={onOpenChange}>
+    <Dialog open={open} onOpenChange={guardedClose(saving, onOpenChange)}>
       <DialogContent>
         <DialogHeader>
           <DialogTitle>Add lead sources</DialogTitle>
@@ -325,10 +333,8 @@ const SourcesDialog = ({ open, onOpenChange, initial, onSave, saving }: any) => 
           ))}
         </div>
         <DialogFooter>
-          <Button variant="outline" onClick={() => onOpenChange(false)}>Cancel</Button>
-          <Button disabled={selected.length === 0 || saving} onClick={() => onSave(selected)}>
-            {saving ? "Saving…" : "Save"}
-          </Button>
+          <Button variant="outline" disabled={saving} onClick={() => onOpenChange(false)}>Cancel</Button>
+          <SavingButton saving={saving} disabled={selected.length === 0} onClick={() => onSave(selected)}>Save</SavingButton>
         </DialogFooter>
       </DialogContent>
     </Dialog>
@@ -340,7 +346,7 @@ const ScriptDialog = ({ open, onOpenChange, initial, tenantName, onSave, saving 
   const [greeting, setGreeting] = useState(initial?.greeting || defaultGreeting);
   const [bookingLink, setBookingLink] = useState(initial?.booking_link || "");
   return (
-    <Dialog open={open} onOpenChange={onOpenChange}>
+    <Dialog open={open} onOpenChange={guardedClose(saving, onOpenChange)}>
       <DialogContent>
         <DialogHeader>
           <DialogTitle>Review agent script</DialogTitle>
@@ -357,10 +363,8 @@ const ScriptDialog = ({ open, onOpenChange, initial, tenantName, onSave, saving 
           </div>
         </div>
         <DialogFooter>
-          <Button variant="outline" onClick={() => onOpenChange(false)}>Cancel</Button>
-          <Button disabled={!greeting.trim() || saving} onClick={() => onSave({ greeting, booking_link: bookingLink || undefined })}>
-            {saving ? "Saving…" : "Save"}
-          </Button>
+          <Button variant="outline" disabled={saving} onClick={() => onOpenChange(false)}>Cancel</Button>
+          <SavingButton saving={saving} disabled={!greeting.trim()} onClick={() => onSave({ greeting, booking_link: bookingLink || undefined })}>Save</SavingButton>
         </DialogFooter>
       </DialogContent>
     </Dialog>
