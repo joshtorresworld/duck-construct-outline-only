@@ -17,7 +17,6 @@ import CustomerAcquisition from "./pages/CustomerAcquisition.tsx";
 import DiscoverySurvey from "./pages/DiscoverySurvey.tsx";
 import Onboarding from "./pages/Onboarding.tsx";
 import ProspectRorigi from "./pages/ProspectRorigi.tsx";
-import ProspectMaryDavis from "./pages/ProspectMaryDavis.tsx";
 import Login from "./pages/Login.tsx";
 import Onboard from "./pages/Onboard.tsx";
 import Dashboard from "./pages/Dashboard.tsx";
@@ -47,7 +46,6 @@ const App = () => (
             <Route path="/onboarding" element={<Onboarding />} />
             <Route path="/zantaz" element={<Zantaz />} />
             <Route path="/prospect/rorigi" element={<ProspectRorigi />} />
-            <Route path="/prospect/mary-davis" element={<ProspectMaryDavis />} />
 
             {/* App */}
             <Route path="/login" element={<Login />} />
