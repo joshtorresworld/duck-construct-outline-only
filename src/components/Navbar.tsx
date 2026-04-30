@@ -25,6 +25,12 @@ const Navbar = () => {
           <a href="/quick-wins" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
             Quick Wins
           </a>
+          <a href="/roi-calculator" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+            ROI
+          </a>
+          <a href="/integrations" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+            Integrations
+          </a>
           <a href="/zantaz" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
             Partners
           </a>
