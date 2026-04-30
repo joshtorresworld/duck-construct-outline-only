@@ -27,7 +27,21 @@ import {
   Globe,
   MessageSquare,
   Circle,
+  Loader2,
 } from "lucide-react";
+
+const SavingButton = ({ saving, children, ...props }: any) => (
+  <Button {...props} disabled={props.disabled || saving}>
+    {saving && <Loader2 className="w-3.5 h-3.5 mr-1.5 animate-spin" />}
+    {saving ? "Saving…" : children}
+  </Button>
+);
+
+// Prevent closing the dialog while a save is in flight
+const guardedClose = (saving: boolean, onOpenChange: (o: boolean) => void) => (o: boolean) => {
+  if (saving && !o) return;
+  onOpenChange(o);
+};
 
 type StepKey = "phone" | "calendar" | "crm" | "sources" | "script";
 
