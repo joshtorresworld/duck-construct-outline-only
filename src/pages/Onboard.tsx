@@ -43,7 +43,7 @@ const STEPS = ["Industry", "Business", "Channels", "Done"] as const;
 
 const Onboard = () => {
   const navigate = useNavigate();
-  const { user, refreshTenant } = useAuth();
+  const { user, session, refreshTenant } = useAuth();
   const [step, setStep] = useState(0);
   const [industry, setIndustry] = useState<Industry | null>(null);
   const [businessName, setBusinessName] = useState("");
@@ -58,28 +58,22 @@ const Onboard = () => {
     if (!user || !industry) return;
     setSubmitting(true);
     try {
-      const { data: tenantRow, error: tErr } = await supabase
-        .from("tenants")
-        .insert({
+      if (!session) {
+        throw new Error("Please sign in again before creating your workspace.");
+      }
+
+      const { error } = await supabase.functions.invoke("provision-workspace", {
+        body: {
           name: businessName,
           industry: industry.id,
           business_phone: businessPhone || null,
           business_email: user.email,
           timezone,
           monthly_price_cents: industry.defaultTier * 100,
-        })
-        .select()
-        .single();
-
-      if (tErr) throw tErr;
-
-      const { error: mErr } = await supabase.from("tenant_members").insert({
-        tenant_id: tenantRow.id,
-        user_id: user.id,
-        role: "owner",
+        },
       });
 
-      if (mErr) throw mErr;
+      if (error) throw error;
 
       await refreshTenant();
       next();
