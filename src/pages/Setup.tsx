@@ -167,6 +167,23 @@ const Setup = () => {
           </p>
         </div>
 
+        <Card className="duck-card mb-4 border-primary/30 bg-primary/5">
+          <CardContent className="p-4 flex items-start gap-3">
+            <div className="rounded-sm bg-primary/15 p-2 text-primary shrink-0">
+              <Sparkles className="w-4 h-4" strokeWidth={1.5} />
+            </div>
+            <div className="flex-1">
+              <div className="flex items-center justify-between gap-3 mb-1">
+                <p className="text-sm font-semibold text-foreground">Lite Mode — go live in 2 steps</p>
+                <Switch checked={liteMode} onCheckedChange={setLiteMode} disabled={saving} />
+              </div>
+              <p className="text-xs text-muted-foreground">
+                No Twilio, CRM, or calendar accounts? Skip integrations. We'll provision a hosted phone number and run everything inside Row of Ducks. You can connect external tools later.
+              </p>
+            </div>
+          </CardContent>
+        </Card>
+
         <div className="space-y-3">
           {STEPS.map((st) => {
             const done = isDone(st.key);
