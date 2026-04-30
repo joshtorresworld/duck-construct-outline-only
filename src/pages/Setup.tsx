@@ -9,6 +9,8 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Checkbox } from "@/components/ui/checkbox";
+import { Switch } from "@/components/ui/switch";
+import { Sparkles } from "lucide-react";
 import {
   Dialog,
   DialogContent,
@@ -111,7 +113,21 @@ const Setup = () => {
     return true;
   };
 
-  const STEPS: { key: StepKey; icon: typeof Phone; title: string; desc: string; cta: string; badge: string }[] = [
+  const liteMode = !!(s as any).lite_mode;
+  const setLiteMode = async (on: boolean) => {
+    setSaving(true);
+    const next = { ...s, lite_mode: on } as any;
+    const { error } = await supabase.from("tenants").update({ settings: next }).eq("id", tenant.id);
+    setSaving(false);
+    if (error) {
+      toast({ title: "Couldn't save", description: error.message, variant: "destructive" });
+      return;
+    }
+    await refreshTenant();
+    toast({ title: on ? "Lite Mode on" : "Lite Mode off", description: on ? "Skip integrations — go live with a hosted number." : "Full integration checklist restored." });
+  };
+
+  const FULL_STEPS: { key: StepKey; icon: typeof Phone; title: string; desc: string; cta: string; badge: string }[] = [
     { key: "phone", icon: Phone, title: "Connect phone & SMS", desc: "Add your business sending number for sub-60-second lead response.", cta: "Set phone number", badge: "Required" },
     { key: "calendar", icon: Calendar, title: "Connect calendar", desc: "Google or Outlook so the agent can auto-book appointments.", cta: "Connect calendar", badge: "Required" },
     { key: "crm", icon: Plug, title: "Connect CRM / PMS", desc: "Bidirectional sync with your existing system of record.", cta: "Choose CRM", badge: "Recommended" },
@@ -119,6 +135,12 @@ const Setup = () => {
     { key: "script", icon: MessageSquare, title: "Review agent script", desc: "Approve the first message your AI sends new leads.", cta: "Edit script", badge: "Optional" },
   ];
 
+  const LITE_STEPS: typeof FULL_STEPS = [
+    { key: "phone", icon: Phone, title: "Get a hosted phone number", desc: "We provision a number on your behalf — no Twilio account needed. Just confirm area code preference.", cta: "Get my number", badge: "Step 1" },
+    { key: "script", icon: MessageSquare, title: "Review AI script", desc: "Approve the first message your AI sends new leads. You're live the moment this is saved.", cta: "Review script", badge: "Step 2" },
+  ];
+
+  const STEPS = liteMode ? LITE_STEPS : FULL_STEPS;
   const completed = STEPS.filter((st) => isDone(st.key)).length;
 
   return (
@@ -144,6 +166,23 @@ const Setup = () => {
             Complete these steps to start capturing and responding to leads automatically. Most teams finish in under 20 minutes.
           </p>
         </div>
+
+        <Card className="duck-card mb-4 border-primary/30 bg-primary/5">
+          <CardContent className="p-4 flex items-start gap-3">
+            <div className="rounded-sm bg-primary/15 p-2 text-primary shrink-0">
+              <Sparkles className="w-4 h-4" strokeWidth={1.5} />
+            </div>
+            <div className="flex-1">
+              <div className="flex items-center justify-between gap-3 mb-1">
+                <p className="text-sm font-semibold text-foreground">Lite Mode — go live in 2 steps</p>
+                <Switch checked={liteMode} onCheckedChange={setLiteMode} disabled={saving} />
+              </div>
+              <p className="text-xs text-muted-foreground">
+                No Twilio, CRM, or calendar accounts? Skip integrations. We'll provision a hosted phone number and run everything inside Row of Ducks. You can connect external tools later.
+              </p>
+            </div>
+          </CardContent>
+        </Card>
 
         <div className="space-y-3">
           {STEPS.map((st) => {
