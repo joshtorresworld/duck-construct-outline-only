@@ -113,17 +113,22 @@ const Setup = () => {
     return true;
   };
 
-  const liteMode = !!(s as any).lite_mode;
+  const [liteOverride, setLiteOverride] = useState<boolean | null>(null);
+  const liteMode = liteOverride !== null ? liteOverride : !!(s as any).lite_mode;
   const setLiteMode = async (on: boolean) => {
+    // Optimistic UI — flip the switch immediately
+    setLiteOverride(on);
     setSaving(true);
     const next = { ...s, lite_mode: on } as any;
     const { error } = await supabase.from("tenants").update({ settings: next }).eq("id", tenant.id);
     setSaving(false);
     if (error) {
+      setLiteOverride(!on); // revert
       toast({ title: "Couldn't save", description: error.message, variant: "destructive" });
       return;
     }
     await refreshTenant();
+    setLiteOverride(null); // let server state take over
     toast({ title: on ? "Lite Mode on" : "Lite Mode off", description: on ? "Skip integrations — go live with a hosted number." : "Full integration checklist restored." });
   };
 
