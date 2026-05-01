@@ -9,6 +9,7 @@ type Tenant = {
   status: string;
   trial_ends_at: string;
   business_phone: string | null;
+  settings: Record<string, unknown>;
 };
 
 type AuthContextValue = {
@@ -44,7 +45,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
     const { data: tenantRow } = await supabase
       .from("tenants")
-      .select("id, name, industry, status, trial_ends_at, business_phone")
+      .select("id, name, industry, status, trial_ends_at, business_phone, settings")
       .eq("id", memberRow.tenant_id)
       .maybeSingle();
 
