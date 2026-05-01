@@ -152,6 +152,7 @@ const Setup = () => {
 
   const STEPS = liteMode ? LITE_STEPS : FULL_STEPS;
   const completed = STEPS.filter((st) => isDone(st.key)).length;
+  const allDone = completed === STEPS.length && STEPS.length > 0;
 
   return (
     <div className="min-h-screen bg-surface-sunken">
@@ -234,6 +235,25 @@ const Setup = () => {
           })}
         </div>
 
+        {allDone && (
+          <Card className="duck-card mt-6 border-success/40 bg-success/5">
+            <CardContent className="p-5 flex items-start gap-3">
+              <div className="rounded-sm bg-success/15 p-2 text-success shrink-0">
+                <CheckCircle2 className="w-4 h-4" strokeWidth={1.5} />
+              </div>
+              <div className="flex-1">
+                <p className="text-sm font-semibold text-foreground mb-1">You're live 🎉</p>
+                <p className="text-xs text-muted-foreground mb-3">
+                  Your AI agent is now responding to new leads in under 60 seconds. Head to the dashboard to watch it work.
+                </p>
+                <Button size="sm" className="rounded-sm h-7 text-xs" onClick={() => navigate("/dashboard")}>
+                  Go to dashboard
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+        )}
+
         <Card className="duck-card mt-6 bg-primary/5 border-primary/20">
           <CardContent className="p-5">
             <p className="text-sm font-semibold text-foreground mb-1">Want us to do it for you?</p>
@@ -245,8 +265,12 @@ const Setup = () => {
         </Card>
       </div>
 
-      {/* Phone dialog */}
-      <PhoneDialog open={open === "phone"} onOpenChange={(o) => !o && setOpen(null)} initial={s.phone} onSave={(v) => saveSettings({ phone: v })} saving={saving} />
+      {/* Phone dialog — lite mode uses hosted number flow */}
+      {liteMode ? (
+        <HostedNumberDialog open={open === "phone"} onOpenChange={(o) => !o && setOpen(null)} initial={s.phone} onSave={(v) => saveSettings({ phone: v })} saving={saving} />
+      ) : (
+        <PhoneDialog open={open === "phone"} onOpenChange={(o) => !o && setOpen(null)} initial={s.phone} onSave={(v) => saveSettings({ phone: v })} saving={saving} />
+      )}
       <CalendarDialog open={open === "calendar"} onOpenChange={(o) => !o && setOpen(null)} initial={s.calendar} onSave={(v) => saveSettings({ calendar: v })} saving={saving} />
       <CrmDialog open={open === "crm"} onOpenChange={(o) => !o && setOpen(null)} initial={s.crm} onSave={(v) => saveSettings({ crm: v })} saving={saving} />
       <SourcesDialog open={open === "sources"} onOpenChange={(o) => !o && setOpen(null)} initial={s.sources} onSave={(v) => saveSettings({ sources: v })} saving={saving} />
@@ -414,6 +438,53 @@ const ScriptDialog = ({ open, onOpenChange, initial, tenantName, onSave, saving 
         <DialogFooter>
           <Button variant="outline" disabled={saving} onClick={() => onOpenChange(false)}>Cancel</Button>
           <SavingButton saving={saving} disabled={!greeting.trim()} onClick={() => onSave({ greeting, booking_link: bookingLink || undefined })}>Save</SavingButton>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
+  );
+};
+
+const HostedNumberDialog = ({ open, onOpenChange, initial, onSave, saving }: any) => {
+  const [areaCode, setAreaCode] = useState(initial?.area_code || "");
+  const hasNumber = !!initial?.number;
+  return (
+    <Dialog open={open} onOpenChange={guardedClose(saving, onOpenChange)}>
+      <DialogContent>
+        <DialogHeader>
+          <DialogTitle>Get a hosted phone number</DialogTitle>
+          <DialogDescription>
+            We'll provision a brand-new number on your behalf — no Twilio account required. Just tell us your preferred area code and we'll handle the rest.
+          </DialogDescription>
+        </DialogHeader>
+        {hasNumber ? (
+          <div className="space-y-2 py-2">
+            <Label>Your hosted number</Label>
+            <div className="rounded-sm border border-border bg-muted/40 px-3 py-2 text-sm font-mono">{initial.number}</div>
+            <p className="text-xs text-muted-foreground">Active and ready to text leads. Contact support to change.</p>
+          </div>
+        ) : (
+          <div className="space-y-3 py-2">
+            <Label htmlFor="area">Preferred area code</Label>
+            <Input id="area" placeholder="e.g. 415" maxLength={3} value={areaCode} onChange={(e) => setAreaCode(e.target.value.replace(/\D/g, ""))} />
+            <p className="text-xs text-muted-foreground">We'll provision a local number in this area code within seconds. If none are available, we'll try a nearby code.</p>
+          </div>
+        )}
+        <DialogFooter>
+          <Button variant="outline" disabled={saving} onClick={() => onOpenChange(false)}>{hasNumber ? "Close" : "Cancel"}</Button>
+          {!hasNumber && (
+            <SavingButton
+              saving={saving}
+              disabled={areaCode.length !== 3}
+              onClick={() => {
+                // Simulate provisioning a hosted number
+                const last7 = Math.floor(1000000 + Math.random() * 9000000);
+                const number = `+1${areaCode}${last7}`;
+                onSave({ number, provider: "twilio", area_code: areaCode, hosted: true });
+              }}
+            >
+              Provision number
+            </SavingButton>
+          )}
         </DialogFooter>
       </DialogContent>
     </Dialog>
