@@ -18,6 +18,7 @@ import DiscoverySurvey from "./pages/DiscoverySurvey.tsx";
 import Onboarding from "./pages/Onboarding.tsx";
 import ProspectRorigi from "./pages/ProspectRorigi.tsx";
 import PracticeAudit from "./pages/PracticeAudit.tsx";
+import PracticeAuditDeepDive from "./pages/PracticeAuditDeepDive.tsx";
 import Login from "./pages/Login.tsx";
 import Onboard from "./pages/Onboard.tsx";
 import Dashboard from "./pages/Dashboard.tsx";
@@ -48,6 +49,7 @@ const App = () => (
             <Route path="/zantaz" element={<Zantaz />} />
             <Route path="/prospect/rorigi" element={<ProspectRorigi />} />
             <Route path="/practice-audit" element={<PracticeAudit />} />
+            <Route path="/industries/practice-audit" element={<PracticeAuditDeepDive />} />
 
             {/* App */}
             <Route path="/login" element={<Login />} />
