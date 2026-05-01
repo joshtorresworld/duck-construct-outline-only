@@ -18,6 +18,7 @@ import DiscoverySurvey from "./pages/DiscoverySurvey.tsx";
 import Onboarding from "./pages/Onboarding.tsx";
 import ProspectRorigi from "./pages/ProspectRorigi.tsx";
 import PracticeAudit from "./pages/PracticeAudit.tsx";
+import PracticeAuditDeepDive from "./pages/PracticeAuditDeepDive.tsx";
 import Login from "./pages/Login.tsx";
 import Onboard from "./pages/Onboard.tsx";
 import Dashboard from "./pages/Dashboard.tsx";
