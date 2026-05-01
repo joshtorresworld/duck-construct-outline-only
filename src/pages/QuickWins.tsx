@@ -19,6 +19,14 @@ import {
   DollarSign,
   Zap,
   ArrowRight,
+  Target,
+  CalendarDays,
+  TrendingUp,
+  Trophy,
+  ListChecks,
+  Megaphone,
+  Handshake,
+  BarChart3,
 } from "lucide-react";
 
 type Industry = {
