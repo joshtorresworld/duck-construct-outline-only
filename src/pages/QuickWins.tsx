@@ -19,6 +19,14 @@ import {
   DollarSign,
   Zap,
   ArrowRight,
+  Target,
+  CalendarDays,
+  TrendingUp,
+  Trophy,
+  ListChecks,
+  Megaphone,
+  Handshake,
+  BarChart3,
 } from "lucide-react";
 
 type Industry = {
@@ -550,6 +558,226 @@ const QuickWins = () => {
           </section>
         );
       })}
+
+      {/* 30-Day Revenue Playbook — Days 8 to 30 */}
+      <section className="py-20 border-b border-border">
+        <div className="container max-w-6xl">
+          <Badge className="mb-6 bg-primary/15 text-foreground hover:bg-primary/15 border-primary/20">
+            <CalendarDays className="w-3 h-3 mr-1.5" strokeWidth={2} />
+            30-Day Revenue Playbook · Days 8–30
+          </Badge>
+          <h2 className="text-4xl md:text-5xl font-bold mb-4 tracking-tight text-balance">
+            Days 1–7 set the stage.<br />
+            <span className="text-muted-foreground">Days 8–30 put cash in the bank.</span>
+          </h2>
+          <p className="text-lg text-muted-foreground max-w-3xl mb-12 leading-relaxed">
+            You've built the prospect list, the scripts, and the offer. Now we run the engine.
+            Three weeks. Three outcomes. Every day has a target, a cadence, and a number to hit.
+          </p>
+
+          {/* Week 2 */}
+          <div className="mb-12">
+            <div className="flex items-start gap-4 mb-6">
+              <div className="w-12 h-12 rounded-md bg-primary/15 flex items-center justify-center shrink-0">
+                <Megaphone className="w-6 h-6 text-foreground" strokeWidth={1.5} />
+              </div>
+              <div>
+                <div className="text-xs font-semibold tracking-[0.2em] uppercase text-muted-foreground mb-1">
+                  Week 2 · Days 8–14
+                </div>
+                <h3 className="text-2xl md:text-3xl font-bold tracking-tight">Outreach Engine — Hit the Phones</h3>
+                <p className="text-muted-foreground mt-1">Outcome: 25+ live conversations, 8+ booked discoveries.</p>
+              </div>
+            </div>
+
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+              {[
+                { day: "Day 8", title: "Launch the Triple-Touch", body: "60 dials + 60 personalized emails + 30 LinkedIn touches against your top Priority A prospects from the Chicagoland & Toledo list.", target: "10 conversations" },
+                { day: "Day 9", title: "Voicemail + Send Email 1", body: "Every no-answer gets the 15-second voicemail and Email 1 within 5 minutes. Cadence > volume.", target: "60 emails sent" },
+                { day: "Day 10", title: "Vertical Power Hour", body: "Block 90 minutes per vertical. Roofing morning. Dental midday. Salons afternoon. Match the script to the moment of day a buyer can take a call.", target: "12 conversations" },
+                { day: "Day 11", title: "Send Email 2 + Re-Dial", body: "3 days after Email 1: drop the follow-up subject line. Re-dial every Email 1 opener.", target: "5 demos booked" },
+                { day: "Day 12", title: "Referral Ask Friday", body: "Call every existing relationship — past clients, vendors, advisors. Ask for one warm intro into a Priority A target.", target: "3 warm intros" },
+                { day: "Day 13", title: "Weekend Drip Setup", body: "Queue Saturday/Sunday emails with the 'Storm Season is Coming' / 'Your Customers' Next Oil Change' lines. Buyers read on weekends.", target: "All sequences live" },
+                { day: "Day 14", title: "Week 2 Review", body: "Score the list: who replied, who opened, who ghosted. Promote 5 new prospects to Priority A. Demote dead leads.", target: "8+ demos on calendar" },
+              ].map((d) => (
+                <Card key={d.day} className="duck-card border-border">
+                  <CardContent className="p-5">
+                    <div className="flex items-center justify-between mb-3">
+                      <Badge variant="outline" className="border-primary/30 text-foreground bg-primary/10 text-xs font-mono">
+                        {d.day}
+                      </Badge>
+                      <Target className="w-4 h-4 text-primary" strokeWidth={1.5} />
+                    </div>
+                    <div className="font-bold text-base mb-2">{d.title}</div>
+                    <p className="text-sm text-muted-foreground leading-relaxed mb-4">{d.body}</p>
+                    <div className="text-xs font-semibold uppercase tracking-wider text-muted-foreground border-t border-border pt-3">
+                      Target: <span className="text-foreground tabular-nums">{d.target}</span>
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          </div>
+
+          {/* Week 3 */}
+          <div className="mb-12">
+            <div className="flex items-start gap-4 mb-6">
+              <div className="w-12 h-12 rounded-md bg-primary/15 flex items-center justify-center shrink-0">
+                <Handshake className="w-6 h-6 text-foreground" strokeWidth={1.5} />
+              </div>
+              <div>
+                <div className="text-xs font-semibold tracking-[0.2em] uppercase text-muted-foreground mb-1">
+                  Week 3 · Days 15–21
+                </div>
+                <h3 className="text-2xl md:text-3xl font-bold tracking-tight">Demos & Proposals — Convert the Pipeline</h3>
+                <p className="text-muted-foreground mt-1">Outcome: 6+ demos delivered, 3+ proposals out, 1+ verbal yes.</p>
+              </div>
+            </div>
+
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+              {[
+                { day: "Day 15", title: "Demo Prep Day", body: "Build per-prospect ROI math. Pull their public reviews, missed-call patterns, and Google rating. Customize 3 slides per demo.", target: "All week's demos prepped" },
+                { day: "Day 16", title: "Demos Block A", body: "Run 2–3 demos. Lead with their pain point from the discovery call. Close with the 90-day guarantee.", target: "3 demos completed" },
+                { day: "Day 17", title: "Same-Day Proposals", body: "Every demo gets a 1-page proposal in their inbox before close of business. Speed = trust.", target: "3 proposals sent" },
+                { day: "Day 18", title: "Demos Block B + Objections", body: "Run remaining demos. Use the objection scripts. Every 'we'll think about it' gets a defined next step before they hang up.", target: "3 demos completed" },
+                { day: "Day 19", title: "Proposal Follow-Up", body: "Call every open proposal. 'I'm calling to walk through page 2 — want to do it now or schedule 10 minutes?'", target: "1 verbal yes" },
+                { day: "Day 20", title: "Refill the Top of Funnel", body: "Pull 25 fresh prospects from the Toledo/Chicagoland list. Drop into the Day 8 sequence so Week 4 has fuel.", target: "25 new prospects loaded" },
+                { day: "Day 21", title: "Week 3 Review", body: "Stage the pipeline: Discovery → Demo → Proposal → Verbal → Signed. Identify the 1–2 deals that close in Week 4.", target: "Pipeline staged" },
+              ].map((d) => (
+                <Card key={d.day} className="duck-card border-border">
+                  <CardContent className="p-5">
+                    <div className="flex items-center justify-between mb-3">
+                      <Badge variant="outline" className="border-primary/30 text-foreground bg-primary/10 text-xs font-mono">
+                        {d.day}
+                      </Badge>
+                      <Handshake className="w-4 h-4 text-primary" strokeWidth={1.5} />
+                    </div>
+                    <div className="font-bold text-base mb-2">{d.title}</div>
+                    <p className="text-sm text-muted-foreground leading-relaxed mb-4">{d.body}</p>
+                    <div className="text-xs font-semibold uppercase tracking-wider text-muted-foreground border-t border-border pt-3">
+                      Target: <span className="text-foreground tabular-nums">{d.target}</span>
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          </div>
+
+          {/* Week 4 */}
+          <div className="mb-12">
+            <div className="flex items-start gap-4 mb-6">
+              <div className="w-12 h-12 rounded-md bg-primary/15 flex items-center justify-center shrink-0">
+                <Trophy className="w-6 h-6 text-foreground" strokeWidth={1.5} />
+              </div>
+              <div>
+                <div className="text-xs font-semibold tracking-[0.2em] uppercase text-muted-foreground mb-1">
+                  Week 4 · Days 22–30
+                </div>
+                <h3 className="text-2xl md:text-3xl font-bold tracking-tight">Close & Compound — Get Cash, Build Momentum</h3>
+                <p className="text-muted-foreground mt-1">Outcome: 1–3 signed clients, $5K–$25K MRR booked, Month 2 pipeline already loaded.</p>
+              </div>
+            </div>
+
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+              {[
+                { day: "Day 22", title: "Close Day — Verbal to Signed", body: "Send DocuSign on every verbal yes. 'Sign today and we activate Lite Mode by Friday.' Use urgency anchored to the 90-day guarantee clock.", target: "1 signature" },
+                { day: "Day 23", title: "Activate Onboarding", body: "Signed clients hit /setup. Lite Mode: phone number provisioned + AI script reviewed within 24 hours of signing.", target: "Day-1 activation" },
+                { day: "Day 24", title: "Stalled Deal Rescue", body: "Every proposal sitting >5 days gets a 'I'm pulling this off your plate unless we talk by Friday' email. Forces a decision.", target: "All proposals re-engaged" },
+                { day: "Day 25", title: "Demos Block C", body: "Last demos of the month from Week 3 refill. Same playbook: pain → ROI → guarantee → next step.", target: "2 demos completed" },
+                { day: "Day 26", title: "First Win Story", body: "Capture the first signed client's 'why' on a 2-minute Loom. This becomes Week 1 proof for next month's outbound.", target: "1 case asset" },
+                { day: "Day 27", title: "Referral Ask · Round 2", body: "Every signed client gets asked: 'Who else in your network has the same problem?' Warm intros are next month's Day 8.", target: "2 warm intros" },
+                { day: "Day 28", title: "Pipeline Hygiene", body: "Kill dead leads. Promote movers. Forecast Month 2: how much MRR is in Verbal + Proposal stages right now?", target: "Forecast committed" },
+                { day: "Day 29", title: "Reload the List", body: "Pull next 50 prospects. Refresh Priority A scoring. The Day 8 engine starts again Monday.", target: "Month 2 list ready" },
+                { day: "Day 30", title: "Score the Month", body: "Conversations, demos, proposals, signed. Compare to the targets above. Double down on the vertical with the highest close rate.", target: "Month 1 scorecard" },
+              ].map((d) => (
+                <Card key={d.day} className="duck-card border-border">
+                  <CardContent className="p-5">
+                    <div className="flex items-center justify-between mb-3">
+                      <Badge variant="outline" className="border-primary/30 text-foreground bg-primary/10 text-xs font-mono">
+                        {d.day}
+                      </Badge>
+                      <Trophy className="w-4 h-4 text-primary" strokeWidth={1.5} />
+                    </div>
+                    <div className="font-bold text-base mb-2">{d.title}</div>
+                    <p className="text-sm text-muted-foreground leading-relaxed mb-4">{d.body}</p>
+                    <div className="text-xs font-semibold uppercase tracking-wider text-muted-foreground border-t border-border pt-3">
+                      Target: <span className="text-foreground tabular-nums">{d.target}</span>
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          </div>
+
+          {/* Daily Operating Rhythm */}
+          <Card className="duck-card border-border bg-muted/30">
+            <CardContent className="p-8">
+              <div className="flex items-center gap-3 mb-6">
+                <ListChecks className="w-5 h-5 text-primary" strokeWidth={1.5} />
+                <h3 className="text-xl font-bold tracking-tight">The Daily Operating Rhythm (Days 8–30)</h3>
+              </div>
+              <div className="grid md:grid-cols-4 gap-6">
+                <div>
+                  <div className="text-xs font-semibold uppercase tracking-wider text-primary mb-2">8:00 – 10:00 AM</div>
+                  <div className="font-semibold mb-1">Power Hour Calls</div>
+                  <p className="text-sm text-muted-foreground leading-relaxed">Top 20 Priority A dials. No email. No Slack. Phones only.</p>
+                </div>
+                <div>
+                  <div className="text-xs font-semibold uppercase tracking-wider text-primary mb-2">10:00 AM – 12:00 PM</div>
+                  <div className="font-semibold mb-1">Demos & Discovery</div>
+                  <p className="text-sm text-muted-foreground leading-relaxed">Block all booked calls here. Lead with their pain, close with next step.</p>
+                </div>
+                <div>
+                  <div className="text-xs font-semibold uppercase tracking-wider text-primary mb-2">1:00 – 3:00 PM</div>
+                  <div className="font-semibold mb-1">Email & Proposals</div>
+                  <p className="text-sm text-muted-foreground leading-relaxed">Send Email 1 / Email 2 sequences. Same-day proposals out the door.</p>
+                </div>
+                <div>
+                  <div className="text-xs font-semibold uppercase tracking-wider text-primary mb-2">3:00 – 5:00 PM</div>
+                  <div className="font-semibold mb-1">Second Power Hour</div>
+                  <p className="text-sm text-muted-foreground leading-relaxed">Re-dial morning no-answers. Auto repair & salons answer the phone after 3pm.</p>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Scoreboard */}
+          <div className="mt-8 grid md:grid-cols-4 gap-4">
+            {[
+              { label: "Daily Dials", target: "60", icon: Phone },
+              { label: "Weekly Demos", target: "6+", icon: Handshake },
+              { label: "Weekly Proposals", target: "3+", icon: Mail },
+              { label: "Month 1 Closes", target: "1–3", icon: TrendingUp },
+            ].map((m) => {
+              const Icon = m.icon;
+              return (
+                <Card key={m.label} className="duck-card border-border">
+                  <CardContent className="p-5">
+                    <Icon className="w-4 h-4 text-primary mb-2" strokeWidth={1.5} />
+                    <div className="text-xs uppercase tracking-wider text-muted-foreground mb-1">{m.label}</div>
+                    <div className="text-2xl font-bold tabular-nums">{m.target}</div>
+                  </CardContent>
+                </Card>
+              );
+            })}
+          </div>
+
+          <div className="mt-10 flex flex-col sm:flex-row gap-3">
+            <a
+              href="/setup"
+              className="inline-flex items-center justify-center gap-2 rounded-sm bg-foreground px-6 py-3 text-sm font-medium text-background hover:opacity-90 transition-opacity"
+            >
+              Activate Lite Mode <ArrowRight className="w-4 h-4" strokeWidth={1.5} />
+            </a>
+            <a
+              href="/week-1-ship"
+              className="inline-flex items-center justify-center gap-2 rounded-sm border border-border bg-background px-6 py-3 text-sm font-medium hover:bg-muted transition-colors"
+            >
+              <BarChart3 className="w-4 h-4" strokeWidth={1.5} /> Review Days 1–7
+            </a>
+          </div>
+        </div>
+      </section>
 
       {/* Universal Frameworks */}
       <section className="py-20 border-b border-border bg-muted/30">
