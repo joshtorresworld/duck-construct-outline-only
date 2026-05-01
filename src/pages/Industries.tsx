@@ -191,6 +191,14 @@ const industries: IndustryCard[] = [
     component: lazy(() => import("@/components/blueprints/LegalBlueprint")),
   },
   {
+    id: "practice-audit", icon: ClipboardCheck, title: "Practice Audit (Solo & Small Pro)", shortTitle: "Practice Audit",
+    description: "A complimentary, workflow-only diagnostic that wins regulated solo practices — attorneys, doctors, CPAs, RIAs. The audit is the wedge; the 8-week agentic rollout is the product. 55–70% audit-to-engagement conversion.",
+    category: "professional", tier: "mid-market",
+    stats: [{ label: "Audit→Engagement", value: "55–70%" }, { label: "Year-1 Recovery", value: "$80K–$250K" }],
+    color: "text-primary", bgColor: "bg-primary/15",
+    component: lazy(() => import("@/components/blueprints/PracticeAuditBlueprint")),
+  },
+  {
     id: "real-estate", icon: Home, title: "Real Estate & Property Mgmt", shortTitle: "Real Estate",
     description: "Sub-60-second lead response, transaction management, wire fraud prevention, and commission tracking.",
     category: "professional", tier: "mid-market",
