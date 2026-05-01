@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
 import { supabase } from "@/integrations/supabase/client";
@@ -80,11 +80,17 @@ const Setup = () => {
   const { toast } = useToast();
   const [open, setOpen] = useState<StepKey | null>(null);
   const [saving, setSaving] = useState(false);
+  const [localSettings, setLocalSettings] = useState<Settings>({});
+  const [liteOverride, setLiteOverride] = useState<boolean | null>(null);
+
+  useEffect(() => {
+    setLocalSettings((((tenant as any)?.settings as Settings | undefined) || {}));
+    setLiteOverride(null);
+  }, [tenant?.id, (tenant as any)?.settings]);
 
   if (!tenant) return null;
 
-  const settings = (tenant as any).settings as Settings | undefined;
-  const s: Settings = settings || {};
+  const s: Settings = localSettings;
 
   const isDone = (k: StepKey) => {
     if (k === "phone") return !!s.phone?.number;
@@ -113,7 +119,6 @@ const Setup = () => {
     return true;
   };
 
-  const [liteOverride, setLiteOverride] = useState<boolean | null>(null);
   const liteMode = liteOverride !== null ? liteOverride : !!(s as any).lite_mode;
   const setLiteMode = async (on: boolean) => {
     // Optimistic UI — flip the switch immediately
@@ -127,8 +132,8 @@ const Setup = () => {
       toast({ title: "Couldn't save", description: error.message, variant: "destructive" });
       return;
     }
+    setLocalSettings(next);
     await refreshTenant();
-    setLiteOverride(null); // let server state take over
     toast({ title: on ? "Lite Mode on" : "Lite Mode off", description: on ? "Skip integrations — go live with a hosted number." : "Full integration checklist restored." });
   };
 
