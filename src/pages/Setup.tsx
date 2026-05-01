@@ -235,6 +235,25 @@ const Setup = () => {
           })}
         </div>
 
+        {allDone && (
+          <Card className="duck-card mt-6 border-success/40 bg-success/5">
+            <CardContent className="p-5 flex items-start gap-3">
+              <div className="rounded-sm bg-success/15 p-2 text-success shrink-0">
+                <CheckCircle2 className="w-4 h-4" strokeWidth={1.5} />
+              </div>
+              <div className="flex-1">
+                <p className="text-sm font-semibold text-foreground mb-1">You're live 🎉</p>
+                <p className="text-xs text-muted-foreground mb-3">
+                  Your AI agent is now responding to new leads in under 60 seconds. Head to the dashboard to watch it work.
+                </p>
+                <Button size="sm" className="rounded-sm h-7 text-xs" onClick={() => navigate("/dashboard")}>
+                  Go to dashboard
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+        )}
+
         <Card className="duck-card mt-6 bg-primary/5 border-primary/20">
           <CardContent className="p-5">
             <p className="text-sm font-semibold text-foreground mb-1">Want us to do it for you?</p>
@@ -246,8 +265,12 @@ const Setup = () => {
         </Card>
       </div>
 
-      {/* Phone dialog */}
-      <PhoneDialog open={open === "phone"} onOpenChange={(o) => !o && setOpen(null)} initial={s.phone} onSave={(v) => saveSettings({ phone: v })} saving={saving} />
+      {/* Phone dialog — lite mode uses hosted number flow */}
+      {liteMode ? (
+        <HostedNumberDialog open={open === "phone"} onOpenChange={(o) => !o && setOpen(null)} initial={s.phone} onSave={(v) => saveSettings({ phone: v })} saving={saving} />
+      ) : (
+        <PhoneDialog open={open === "phone"} onOpenChange={(o) => !o && setOpen(null)} initial={s.phone} onSave={(v) => saveSettings({ phone: v })} saving={saving} />
+      )}
       <CalendarDialog open={open === "calendar"} onOpenChange={(o) => !o && setOpen(null)} initial={s.calendar} onSave={(v) => saveSettings({ calendar: v })} saving={saving} />
       <CrmDialog open={open === "crm"} onOpenChange={(o) => !o && setOpen(null)} initial={s.crm} onSave={(v) => saveSettings({ crm: v })} saving={saving} />
       <SourcesDialog open={open === "sources"} onOpenChange={(o) => !o && setOpen(null)} initial={s.sources} onSave={(v) => saveSettings({ sources: v })} saving={saving} />
