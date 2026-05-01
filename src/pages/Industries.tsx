@@ -45,6 +45,7 @@ import {
   Stethoscope,
   Ruler,
   Wheat,
+  ClipboardCheck,
 } from "lucide-react";
 import { Link } from "react-router-dom";
 
