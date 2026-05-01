@@ -152,6 +152,7 @@ const Setup = () => {
 
   const STEPS = liteMode ? LITE_STEPS : FULL_STEPS;
   const completed = STEPS.filter((st) => isDone(st.key)).length;
+  const allDone = completed === STEPS.length && STEPS.length > 0;
 
   return (
     <div className="min-h-screen bg-surface-sunken">
