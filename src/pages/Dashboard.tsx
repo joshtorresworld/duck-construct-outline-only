@@ -92,6 +92,18 @@ const Dashboard = () => {
     Math.ceil((new Date(tenant.trial_ends_at).getTime() - Date.now()) / (1000 * 60 * 60 * 24))
   );
 
+  // Setup completion check — mirrors Setup.tsx logic
+  const settings = ((tenant as any).settings || {}) as {
+    lite_mode?: boolean;
+    phone?: { number?: string };
+    calendar?: { email?: string };
+    script?: { greeting?: string };
+  };
+  const liteMode = !!settings.lite_mode;
+  const setupComplete = liteMode
+    ? !!settings.phone?.number && !!settings.script?.greeting
+    : !!settings.phone?.number && !!settings.calendar?.email && !!settings.script?.greeting;
+
   return (
     <div className="min-h-screen bg-surface-sunken">
       {/* App Header */}
