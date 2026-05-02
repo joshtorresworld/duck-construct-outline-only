@@ -122,6 +122,7 @@ const Dashboard = () => {
     freshSettings ?? (((tenant as any).settings || {}) as TenantSettings);
   const liteMode = isLiteMode(settings);
   const setupComplete = isSetupComplete(settings);
+  const industry = getIndustryConfig(tenant.industry);
 
   return (
     <div className="min-h-screen bg-surface-sunken">
@@ -174,8 +175,8 @@ const Dashboard = () => {
                 </p>
                 <p className="text-xs text-muted-foreground mb-2">
                   {liteMode
-                    ? "Complete your 2-step Lite Mode checklist to start capturing leads."
-                    : "Connect your phone, calendar, and CRM to start capturing leads."}
+                    ? `Complete your 2-step Lite Mode checklist to start booking ${industry.serviceNounPlural}.`
+                    : industry.setupBannerSubtext}
                 </p>
                 <Button size="sm" className="rounded-sm h-7 text-xs" onClick={() => navigate("/setup")}>
                   <Plug className="w-3 h-3 mr-1" /> Open setup
@@ -230,12 +231,10 @@ const Dashboard = () => {
               <Zap className="w-6 h-6 text-primary" strokeWidth={1.5} />
             </div>
             <h3 className="text-lg font-semibold text-foreground mb-2">
-              {setupComplete ? "You're live — waiting on the first lead" : "Your agents are ready"}
+              {setupComplete ? industry.liveEmptyState.headline : industry.pendingEmptyState.headline}
             </h3>
             <p className="text-sm text-muted-foreground max-w-md mx-auto mb-6">
-              {setupComplete
-                ? "Setup is complete. The next inquiry from any of your sources will get a sub-60-second AI response automatically."
-                : "Once you connect your phone number and lead sources, every new inquiry will get a sub-60-second response — automatically."}
+              {setupComplete ? industry.liveEmptyState.subtext : industry.pendingEmptyState.subtext}
             </p>
             {!setupComplete && (
               <div className="flex flex-wrap gap-2 justify-center">
