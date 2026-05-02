@@ -309,6 +309,41 @@ export type Database = {
           },
         ]
       }
+      tenant_billing: {
+        Row: {
+          created_at: string
+          monthly_price_cents: number | null
+          stripe_customer_id: string | null
+          stripe_subscription_id: string | null
+          tenant_id: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          monthly_price_cents?: number | null
+          stripe_customer_id?: string | null
+          stripe_subscription_id?: string | null
+          tenant_id: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          monthly_price_cents?: number | null
+          stripe_customer_id?: string | null
+          stripe_subscription_id?: string | null
+          tenant_id?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "tenant_billing_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: true
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       tenant_members: {
         Row: {
           created_at: string
@@ -348,12 +383,9 @@ export type Database = {
           created_at: string
           id: string
           industry: Database["public"]["Enums"]["tenant_industry"]
-          monthly_price_cents: number | null
           name: string
           settings: Json
           status: Database["public"]["Enums"]["tenant_status"]
-          stripe_customer_id: string | null
-          stripe_subscription_id: string | null
           timezone: string
           trial_ends_at: string
           updated_at: string
@@ -364,12 +396,9 @@ export type Database = {
           created_at?: string
           id?: string
           industry: Database["public"]["Enums"]["tenant_industry"]
-          monthly_price_cents?: number | null
           name: string
           settings?: Json
           status?: Database["public"]["Enums"]["tenant_status"]
-          stripe_customer_id?: string | null
-          stripe_subscription_id?: string | null
           timezone?: string
           trial_ends_at?: string
           updated_at?: string
@@ -380,12 +409,9 @@ export type Database = {
           created_at?: string
           id?: string
           industry?: Database["public"]["Enums"]["tenant_industry"]
-          monthly_price_cents?: number | null
           name?: string
           settings?: Json
           status?: Database["public"]["Enums"]["tenant_status"]
-          stripe_customer_id?: string | null
-          stripe_subscription_id?: string | null
           timezone?: string
           trial_ends_at?: string
           updated_at?: string
