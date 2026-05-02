@@ -144,23 +144,27 @@ const Dashboard = () => {
           </p>
         </div>
 
-        {/* Setup banner if no integrations */}
-        <Card className="duck-card bg-warning/5 border-warning/20 mb-6">
-          <CardContent className="p-4 flex items-start gap-3">
-            <AlertCircle className="w-4 h-4 text-warning shrink-0 mt-0.5" strokeWidth={1.5} />
-            <div className="flex-1">
-              <p className="text-sm font-semibold text-foreground mb-0.5">
-                Finish setup to go live
-              </p>
-              <p className="text-xs text-muted-foreground mb-2">
-                Connect your phone, calendar, and CRM to start capturing leads.
-              </p>
-              <Button size="sm" className="rounded-sm h-7 text-xs" onClick={() => navigate("/setup")}>
-                <Plug className="w-3 h-3 mr-1" /> Open setup
-              </Button>
-            </div>
-          </CardContent>
-        </Card>
+        {/* Setup banner — only when incomplete */}
+        {!setupComplete && (
+          <Card className="duck-card bg-warning/5 border-warning/20 mb-6">
+            <CardContent className="p-4 flex items-start gap-3">
+              <AlertCircle className="w-4 h-4 text-warning shrink-0 mt-0.5" strokeWidth={1.5} />
+              <div className="flex-1">
+                <p className="text-sm font-semibold text-foreground mb-0.5">
+                  Finish setup to go live
+                </p>
+                <p className="text-xs text-muted-foreground mb-2">
+                  {liteMode
+                    ? "Complete your 2-step Lite Mode checklist to start capturing leads."
+                    : "Connect your phone, calendar, and CRM to start capturing leads."}
+                </p>
+                <Button size="sm" className="rounded-sm h-7 text-xs" onClick={() => navigate("/setup")}>
+                  <Plug className="w-3 h-3 mr-1" /> Open setup
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+        )}
 
         {/* KPI Grid */}
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
