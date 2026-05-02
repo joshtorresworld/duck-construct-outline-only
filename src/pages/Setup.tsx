@@ -32,6 +32,7 @@ import {
   Loader2,
 } from "lucide-react";
 import { getIndustryConfig, renderGreeting } from "@/lib/industry-config";
+import { FEATURE_FLAGS, anyCalendarEnabled } from "@/lib/feature-flags";
 
 const SavingButton = ({ saving, children, ...props }: any) => (
   <Button {...props} disabled={props.disabled || saving}>
@@ -45,6 +46,12 @@ const guardedClose = (saving: boolean, onOpenChange: (o: boolean) => void) => (o
   if (saving && !o) return;
   onOpenChange(o);
 };
+
+const PreviewBanner = ({ children }: { children: React.ReactNode }) => (
+  <div className="rounded-sm border border-amber-300/60 bg-amber-50 dark:bg-amber-950/30 dark:border-amber-700/40 px-3 py-2 text-xs text-amber-900 dark:text-amber-200">
+    <span className="font-semibold">Preview mode:</span> {children}
+  </div>
+);
 
 type StepKey = "phone" | "calendar" | "crm" | "sources" | "script";
 
@@ -286,6 +293,11 @@ const PhoneDialog = ({ open, onOpenChange, initial, onSave, saving }: any) => {
             Enter the phone number your AI agent will use to text leads. We'll provision a Twilio number on your behalf when you go live.
           </DialogDescription>
         </DialogHeader>
+        {!FEATURE_FLAGS.twilio && (
+          <PreviewBanner>
+            Twilio integration is not yet wired. Your number is saved for testing, but no SMS will actually send until Twilio is enabled.
+          </PreviewBanner>
+        )}
         <div className="space-y-3 py-2">
           <Label htmlFor="phone">Business sending number</Label>
           <Input id="phone" placeholder="+1 (555) 123-4567" value={number} onChange={(e) => setNumber(e.target.value)} />
@@ -309,9 +321,14 @@ const CalendarDialog = ({ open, onOpenChange, initial, onSave, saving }: any) =>
         <DialogHeader>
           <DialogTitle>Connect calendar</DialogTitle>
           <DialogDescription>
-            Tell us which calendar to book appointments into. OAuth link will be sent to your inbox to complete the connection.
+            Tell us which calendar to book appointments into. When calendar OAuth is enabled, we'll email you a connection link to finish authorizing.
           </DialogDescription>
         </DialogHeader>
+        {!anyCalendarEnabled() && (
+          <PreviewBanner>
+            Calendar OAuth is not yet wired. Your email and provider are saved, but no link will be sent and no events will book until OAuth is enabled.
+          </PreviewBanner>
+        )}
         <div className="space-y-3 py-2">
           <div>
             <Label>Provider</Label>
@@ -350,6 +367,11 @@ const CrmDialog = ({ open, onOpenChange, initial, onSave, saving }: any) => {
             Pick your system of record. We'll sync leads, notes, and appointments bidirectionally.
           </DialogDescription>
         </DialogHeader>
+        {!FEATURE_FLAGS.crm && (
+          <PreviewBanner>
+            CRM sync is not yet wired. Credentials are saved (encrypted in the database) but they aren't validated against the CRM API and no records will sync until the integration is enabled.
+          </PreviewBanner>
+        )}
         <div className="space-y-3 py-2">
           <div>
             <Label>System</Label>
@@ -442,6 +464,29 @@ const ScriptDialog = ({ open, onOpenChange, initial, tenantName, defaultGreeting
 const HostedNumberDialog = ({ open, onOpenChange, initial, onSave, saving }: any) => {
   const [areaCode, setAreaCode] = useState(initial?.area_code || "");
   const hasNumber = !!initial?.number;
+  const twilioOn = FEATURE_FLAGS.twilio;
+
+  const handleProvision = () => {
+    if (twilioOn) {
+      // TODO: Replace with a real edge-function call that provisions a Twilio
+      // number for this tenant and area code, then return { number, sid }.
+      // Until that exists, leave the flag off — the preview path below runs.
+      console.warn(
+        "VITE_TWILIO_ENABLED=true but no provisioning function is wired. Falling back to preview."
+      );
+    }
+    // Preview-mode fallback: generate a clearly-fake number and save it.
+    const last7 = Math.floor(1000000 + Math.random() * 9000000);
+    const number = `+1${areaCode}${last7}`;
+    onSave({
+      number,
+      provider: "twilio",
+      area_code: areaCode,
+      hosted: true,
+      simulated: !twilioOn,
+    });
+  };
+
   return (
     <Dialog open={open} onOpenChange={guardedClose(saving, onOpenChange)}>
       <DialogContent>
@@ -451,33 +496,51 @@ const HostedNumberDialog = ({ open, onOpenChange, initial, onSave, saving }: any
             We'll provision a brand-new number on your behalf — no Twilio account required. Just tell us your preferred area code and we'll handle the rest.
           </DialogDescription>
         </DialogHeader>
+
+        {!twilioOn && (
+          <PreviewBanner>
+            Twilio provisioning is not yet wired. We'll save a placeholder number so you can test the rest of the setup flow — no real number is created and no SMS will send.
+          </PreviewBanner>
+        )}
+
         {hasNumber ? (
           <div className="space-y-2 py-2">
             <Label>Your hosted number</Label>
-            <div className="rounded-sm border border-border bg-muted/40 px-3 py-2 text-sm font-mono">{initial.number}</div>
-            <p className="text-xs text-muted-foreground">Active and ready to text leads. Contact support to change.</p>
+            <div className="rounded-sm border border-border bg-muted/40 px-3 py-2 text-sm font-mono flex items-center gap-2">
+              <span>{initial.number}</span>
+              {initial.simulated && (
+                <span className="text-xs text-muted-foreground font-sans">(simulated)</span>
+              )}
+            </div>
+            <p className="text-xs text-muted-foreground">
+              {initial.simulated
+                ? "Placeholder for preview only. Will be replaced when Twilio provisioning is enabled."
+                : "Active and ready to text leads. Contact support to change."}
+            </p>
           </div>
         ) : (
           <div className="space-y-3 py-2">
             <Label htmlFor="area">Preferred area code</Label>
-            <Input id="area" placeholder="e.g. 415" maxLength={3} value={areaCode} onChange={(e) => setAreaCode(e.target.value.replace(/\D/g, ""))} />
-            <p className="text-xs text-muted-foreground">We'll provision a local number in this area code within seconds. If none are available, we'll try a nearby code.</p>
+            <Input
+              id="area"
+              placeholder="e.g. 415"
+              maxLength={3}
+              value={areaCode}
+              onChange={(e) => setAreaCode(e.target.value.replace(/\D/g, ""))}
+            />
+            <p className="text-xs text-muted-foreground">
+              We'll provision a local number in this area code within seconds. If none are available, we'll try a nearby code.
+            </p>
           </div>
         )}
+
         <DialogFooter>
-          <Button variant="outline" disabled={saving} onClick={() => onOpenChange(false)}>{hasNumber ? "Close" : "Cancel"}</Button>
+          <Button variant="outline" disabled={saving} onClick={() => onOpenChange(false)}>
+            {hasNumber ? "Close" : "Cancel"}
+          </Button>
           {!hasNumber && (
-            <SavingButton
-              saving={saving}
-              disabled={areaCode.length !== 3}
-              onClick={() => {
-                // Simulate provisioning a hosted number
-                const last7 = Math.floor(1000000 + Math.random() * 9000000);
-                const number = `+1${areaCode}${last7}`;
-                onSave({ number, provider: "twilio", area_code: areaCode, hosted: true });
-              }}
-            >
-              Provision number
+            <SavingButton saving={saving} disabled={areaCode.length !== 3} onClick={handleProvision}>
+              {twilioOn ? "Provision number" : "Save preview number"}
             </SavingButton>
           )}
         </DialogFooter>
