@@ -211,23 +211,26 @@ const Dashboard = () => {
               <Zap className="w-6 h-6 text-primary" strokeWidth={1.5} />
             </div>
             <h3 className="text-lg font-semibold text-foreground mb-2">
-              Your agents are ready
+              {setupComplete ? "You're live — waiting on the first lead" : "Your agents are ready"}
             </h3>
             <p className="text-sm text-muted-foreground max-w-md mx-auto mb-6">
-              Once you connect your phone number and lead sources, every new inquiry will get a
-              sub-60-second response — automatically.
+              {setupComplete
+                ? "Setup is complete. The next inquiry from any of your sources will get a sub-60-second AI response automatically."
+                : "Once you connect your phone number and lead sources, every new inquiry will get a sub-60-second response — automatically."}
             </p>
-            <div className="flex flex-wrap gap-2 justify-center">
-              <Button className="rounded-sm" onClick={() => navigate("/setup")}>
-                <Phone className="w-4 h-4 mr-1.5" /> Connect phone
-              </Button>
-              <Button variant="outline" className="rounded-sm" onClick={() => navigate("/setup")}>
-                <Calendar className="w-4 h-4 mr-1.5" /> Connect calendar
-              </Button>
-              <Button variant="outline" className="rounded-sm" onClick={() => navigate("/setup")}>
-                <Plug className="w-4 h-4 mr-1.5" /> Connect CRM
-              </Button>
-            </div>
+            {!setupComplete && (
+              <div className="flex flex-wrap gap-2 justify-center">
+                <Button className="rounded-sm" onClick={() => navigate("/setup")}>
+                  <Phone className="w-4 h-4 mr-1.5" /> Connect phone
+                </Button>
+                <Button variant="outline" className="rounded-sm" onClick={() => navigate("/setup")}>
+                  <Calendar className="w-4 h-4 mr-1.5" /> Connect calendar
+                </Button>
+                <Button variant="outline" className="rounded-sm" onClick={() => navigate("/setup")}>
+                  <Plug className="w-4 h-4 mr-1.5" /> Connect CRM
+                </Button>
+              </div>
+            )}
           </CardContent>
         </Card>
       </div>
