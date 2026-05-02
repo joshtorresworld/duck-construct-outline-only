@@ -33,7 +33,7 @@ const fmt = (n: number) =>
 
 const Dashboard = () => {
   const navigate = useNavigate();
-  const { user, tenant, signOut } = useAuth();
+  const { user, tenant, signOut, refreshTenant } = useAuth();
   const [stats, setStats] = useState<Stats>({
     leadsThisWeek: 0,
     avgResponseSeconds: null,
