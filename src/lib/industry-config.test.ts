@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { getIndustryConfig } from "./industry-config";
+import { getIndustryConfig, renderGreeting } from "./industry-config";
 import { INDUSTRY_KEYS, runIndustryChecks } from "./industry-checks";
 
 describe("INDUSTRY_CONFIG — 30-Day Revenue Playbook coverage", () => {

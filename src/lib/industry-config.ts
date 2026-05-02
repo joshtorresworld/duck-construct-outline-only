@@ -172,16 +172,23 @@ export const getIndustryConfig = (industry: string | null | undefined): Industry
 };
 
 /**
- * Substitute {{tenant_name}} and {{lead_first_name}} placeholders in a greeting template.
- * Leaves unknown placeholders untouched (useful for preview/draft mode).
+ * Substitute supported placeholders in a greeting template.
+ *
+ * - `{{tenant_name}}` is always substituted.
+ * - `{{lead_first_name}}` is substituted ONLY when leadFirstName is provided.
+ *   This lets the Setup preview keep the placeholder visible (so users
+ *   understand it's a token), while the runtime SMS sender — which always
+ *   passes the lead's name — produces a fully personalized message.
+ *
+ * Add new placeholders here as the template grows.
  */
 export const renderGreeting = (
   template: string,
-  vars: { tenantName: string; leadFirstName?: string },
+  vars: { tenantName: string; leadFirstName?: string }
 ): string => {
-  let out = template.split("{{tenant_name}}").join(vars.tenantName);
+  let out = template.replace(/\{\{tenant_name\}\}/g, vars.tenantName);
   if (vars.leadFirstName !== undefined) {
-    out = out.split("{{lead_first_name}}").join(vars.leadFirstName);
+    out = out.replace(/\{\{lead_first_name\}\}/g, vars.leadFirstName);
   }
   return out;
 };
