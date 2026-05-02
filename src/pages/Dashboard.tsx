@@ -145,11 +145,22 @@ const Dashboard = () => {
               </Badge>
             )}
             {import.meta.env.DEV && (
-              <DevIndustrySwitcher
-                tenantId={tenant.id}
-                currentIndustry={tenant.industry}
-                onChanged={refreshTenant}
-              />
+              <>
+                <DevIndustrySwitcher
+                  tenantId={tenant.id}
+                  currentIndustry={tenant.industry}
+                  onChanged={refreshTenant}
+                />
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className="text-xs"
+                  onClick={() => navigate("/qa/industries")}
+                  title="Dev only — A/B test status across all 5 industries"
+                >
+                  QA
+                </Button>
+              </>
             )}
             <Button variant="ghost" size="sm" className="text-xs" onClick={() => navigate("/setup")}>
               <Settings className="w-3.5 h-3.5 mr-1" /> Settings
