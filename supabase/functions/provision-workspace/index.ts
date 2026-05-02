@@ -91,7 +91,6 @@ Deno.serve(async (req) => {
         business_phone: businessPhone,
         business_email: businessEmail,
         timezone,
-        monthly_price_cents: monthlyPriceCents,
       })
       .select("id, name, industry, status, trial_ends_at, business_phone")
       .single();
@@ -107,6 +106,19 @@ Deno.serve(async (req) => {
     if (memberError) {
       await adminClient.from("tenants").delete().eq("id", tenant.id);
       throw memberError;
+    }
+
+    if (monthlyPriceCents !== null) {
+      const { error: billingError } = await adminClient.from("tenant_billing").insert({
+        tenant_id: tenant.id,
+        monthly_price_cents: monthlyPriceCents,
+      });
+
+      if (billingError) {
+        await adminClient.from("tenant_members").delete().eq("tenant_id", tenant.id);
+        await adminClient.from("tenants").delete().eq("id", tenant.id);
+        throw billingError;
+      }
     }
 
     return json({ tenant });
