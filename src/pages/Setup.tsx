@@ -31,6 +31,7 @@ import {
   Circle,
   Loader2,
 } from "lucide-react";
+import { getIndustryConfig, renderGreeting } from "@/lib/industry-config";
 
 const SavingButton = ({ saving, children, ...props }: any) => (
   <Button {...props} disabled={props.disabled || saving}>
@@ -55,15 +56,7 @@ type Settings = {
   script?: { greeting: string; booking_link?: string };
 };
 
-const SOURCE_OPTIONS = [
-  "Web form",
-  "Zillow",
-  "Realtor.com",
-  "Google LSA",
-  "Facebook Lead Ads",
-  "Yelp",
-  "Phone calls",
-];
+// SOURCE_OPTIONS now comes from industry config — see getIndustryConfig(tenant.industry).leadSources
 
 const CRM_OPTIONS = [
   "Follow Up Boss",
