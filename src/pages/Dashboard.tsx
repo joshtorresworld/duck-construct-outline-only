@@ -92,6 +92,18 @@ const Dashboard = () => {
     Math.ceil((new Date(tenant.trial_ends_at).getTime() - Date.now()) / (1000 * 60 * 60 * 24))
   );
 
+  // Setup completion check — mirrors Setup.tsx logic
+  const settings = ((tenant as any).settings || {}) as {
+    lite_mode?: boolean;
+    phone?: { number?: string };
+    calendar?: { email?: string };
+    script?: { greeting?: string };
+  };
+  const liteMode = !!settings.lite_mode;
+  const setupComplete = liteMode
+    ? !!settings.phone?.number && !!settings.script?.greeting
+    : !!settings.phone?.number && !!settings.calendar?.email && !!settings.script?.greeting;
+
   return (
     <div className="min-h-screen bg-surface-sunken">
       {/* App Header */}
@@ -132,23 +144,27 @@ const Dashboard = () => {
           </p>
         </div>
 
-        {/* Setup banner if no integrations */}
-        <Card className="duck-card bg-warning/5 border-warning/20 mb-6">
-          <CardContent className="p-4 flex items-start gap-3">
-            <AlertCircle className="w-4 h-4 text-warning shrink-0 mt-0.5" strokeWidth={1.5} />
-            <div className="flex-1">
-              <p className="text-sm font-semibold text-foreground mb-0.5">
-                Finish setup to go live
-              </p>
-              <p className="text-xs text-muted-foreground mb-2">
-                Connect your phone, calendar, and CRM to start capturing leads.
-              </p>
-              <Button size="sm" className="rounded-sm h-7 text-xs" onClick={() => navigate("/setup")}>
-                <Plug className="w-3 h-3 mr-1" /> Open setup
-              </Button>
-            </div>
-          </CardContent>
-        </Card>
+        {/* Setup banner — only when incomplete */}
+        {!setupComplete && (
+          <Card className="duck-card bg-warning/5 border-warning/20 mb-6">
+            <CardContent className="p-4 flex items-start gap-3">
+              <AlertCircle className="w-4 h-4 text-warning shrink-0 mt-0.5" strokeWidth={1.5} />
+              <div className="flex-1">
+                <p className="text-sm font-semibold text-foreground mb-0.5">
+                  Finish setup to go live
+                </p>
+                <p className="text-xs text-muted-foreground mb-2">
+                  {liteMode
+                    ? "Complete your 2-step Lite Mode checklist to start capturing leads."
+                    : "Connect your phone, calendar, and CRM to start capturing leads."}
+                </p>
+                <Button size="sm" className="rounded-sm h-7 text-xs" onClick={() => navigate("/setup")}>
+                  <Plug className="w-3 h-3 mr-1" /> Open setup
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+        )}
 
         {/* KPI Grid */}
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
@@ -195,23 +211,26 @@ const Dashboard = () => {
               <Zap className="w-6 h-6 text-primary" strokeWidth={1.5} />
             </div>
             <h3 className="text-lg font-semibold text-foreground mb-2">
-              Your agents are ready
+              {setupComplete ? "You're live — waiting on the first lead" : "Your agents are ready"}
             </h3>
             <p className="text-sm text-muted-foreground max-w-md mx-auto mb-6">
-              Once you connect your phone number and lead sources, every new inquiry will get a
-              sub-60-second response — automatically.
+              {setupComplete
+                ? "Setup is complete. The next inquiry from any of your sources will get a sub-60-second AI response automatically."
+                : "Once you connect your phone number and lead sources, every new inquiry will get a sub-60-second response — automatically."}
             </p>
-            <div className="flex flex-wrap gap-2 justify-center">
-              <Button className="rounded-sm" onClick={() => navigate("/setup")}>
-                <Phone className="w-4 h-4 mr-1.5" /> Connect phone
-              </Button>
-              <Button variant="outline" className="rounded-sm" onClick={() => navigate("/setup")}>
-                <Calendar className="w-4 h-4 mr-1.5" /> Connect calendar
-              </Button>
-              <Button variant="outline" className="rounded-sm" onClick={() => navigate("/setup")}>
-                <Plug className="w-4 h-4 mr-1.5" /> Connect CRM
-              </Button>
-            </div>
+            {!setupComplete && (
+              <div className="flex flex-wrap gap-2 justify-center">
+                <Button className="rounded-sm" onClick={() => navigate("/setup")}>
+                  <Phone className="w-4 h-4 mr-1.5" /> Connect phone
+                </Button>
+                <Button variant="outline" className="rounded-sm" onClick={() => navigate("/setup")}>
+                  <Calendar className="w-4 h-4 mr-1.5" /> Connect calendar
+                </Button>
+                <Button variant="outline" className="rounded-sm" onClick={() => navigate("/setup")}>
+                  <Plug className="w-4 h-4 mr-1.5" /> Connect CRM
+                </Button>
+              </div>
+            )}
           </CardContent>
         </Card>
       </div>
