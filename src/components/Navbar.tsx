@@ -10,9 +10,6 @@ const Navbar = () => {
           </span>
         </div>
         <nav className="hidden md:flex items-center gap-8">
-          <a href="#results" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
-            Results
-          </a>
           <a href="/small-business" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
             Small Business
           </a>
