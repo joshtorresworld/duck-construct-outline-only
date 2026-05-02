@@ -141,7 +141,7 @@ const Dashboard = () => {
                 Trial · {trialDaysLeft}d left
               </Badge>
             )}
-            <Button variant="ghost" size="sm" className="text-xs">
+            <Button variant="ghost" size="sm" className="text-xs" onClick={() => navigate("/setup")}>
               <Settings className="w-3.5 h-3.5 mr-1" /> Settings
             </Button>
             <Button variant="ghost" size="sm" onClick={signOut} className="text-xs">
