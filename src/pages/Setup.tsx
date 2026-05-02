@@ -83,6 +83,7 @@ const Setup = () => {
 
   if (!tenant) return null;
 
+  const industry = getIndustryConfig((tenant as any).industry);
   const s: Settings = localSettings;
 
   const isDone = (k: StepKey) => {
@@ -134,7 +135,7 @@ const Setup = () => {
     { key: "phone", icon: Phone, title: "Connect phone & SMS", desc: "Add your business sending number for sub-60-second lead response.", cta: "Set phone number", badge: "Required" },
     { key: "calendar", icon: Calendar, title: "Connect calendar", desc: "Google or Outlook so the agent can auto-book appointments.", cta: "Connect calendar", badge: "Required" },
     { key: "crm", icon: Plug, title: "Connect CRM / PMS", desc: "Bidirectional sync with your existing system of record.", cta: "Choose CRM", badge: "Recommended" },
-    { key: "sources", icon: Globe, title: "Add lead sources", desc: "Web form, Zillow, Realtor.com, Google LSA — pipe everything into one inbox.", cta: "Pick sources", badge: "Recommended" },
+    { key: "sources", icon: Globe, title: "Add lead sources", desc: `${industry.leadSources.slice(0, 4).join(", ")}${industry.leadSources.length > 4 ? "…" : ""} — pipe everything into one inbox.`, cta: "Pick sources", badge: "Recommended" },
     { key: "script", icon: MessageSquare, title: "Review agent script", desc: "Approve the first message your AI sends new leads.", cta: "Edit script", badge: "Optional" },
   ];
 
@@ -182,7 +183,7 @@ const Setup = () => {
                 <Switch checked={liteMode} onCheckedChange={setLiteMode} disabled={saving} />
               </div>
               <p className="text-xs text-muted-foreground">
-                No Twilio, CRM, or calendar accounts? Skip integrations. We'll provision a hosted phone number and run everything inside Row of Ducks. You can connect external tools later.
+                {industry.liteModeBlurb}
               </p>
             </div>
           </CardContent>
@@ -266,8 +267,8 @@ const Setup = () => {
       )}
       <CalendarDialog open={open === "calendar"} onOpenChange={(o) => !o && setOpen(null)} initial={s.calendar} onSave={(v) => saveSettings({ calendar: v })} saving={saving} />
       <CrmDialog open={open === "crm"} onOpenChange={(o) => !o && setOpen(null)} initial={s.crm} onSave={(v) => saveSettings({ crm: v })} saving={saving} />
-      <SourcesDialog open={open === "sources"} onOpenChange={(o) => !o && setOpen(null)} initial={s.sources} onSave={(v) => saveSettings({ sources: v })} saving={saving} />
-      <ScriptDialog open={open === "script"} onOpenChange={(o) => !o && setOpen(null)} initial={s.script} tenantName={tenant.name} onSave={(v) => saveSettings({ script: v })} saving={saving} />
+      <SourcesDialog open={open === "sources"} onOpenChange={(o) => !o && setOpen(null)} initial={s.sources} options={industry.leadSources} onSave={(v) => saveSettings({ sources: v })} saving={saving} />
+      <ScriptDialog open={open === "script"} onOpenChange={(o) => !o && setOpen(null)} initial={s.script} tenantName={tenant.name} defaultGreeting={renderGreeting(industry.defaultGreetingTemplate, { tenantName: tenant.name })} onSave={(v) => saveSettings({ script: v })} saving={saving} />
     </div>
   );
 };
@@ -379,8 +380,9 @@ const CrmDialog = ({ open, onOpenChange, initial, onSave, saving }: any) => {
   );
 };
 
-const SourcesDialog = ({ open, onOpenChange, initial, onSave, saving }: any) => {
+const SourcesDialog = ({ open, onOpenChange, initial, options, onSave, saving }: any) => {
   const [selected, setSelected] = useState<string[]>(initial || []);
+  const sourceList: string[] = options || [];
   const toggle = (src: string) =>
     setSelected((prev) => (prev.includes(src) ? prev.filter((s) => s !== src) : [...prev, src]));
   return (
@@ -391,7 +393,7 @@ const SourcesDialog = ({ open, onOpenChange, initial, onSave, saving }: any) => 
           <DialogDescription>Pick everywhere new leads come from. We'll route them all into one inbox.</DialogDescription>
         </DialogHeader>
         <div className="grid grid-cols-2 gap-2 py-2">
-          {SOURCE_OPTIONS.map((src) => (
+          {sourceList.map((src) => (
             <label key={src} className="flex items-center gap-2 rounded-sm border border-border p-2 cursor-pointer hover:bg-accent">
               <Checkbox checked={selected.includes(src)} onCheckedChange={() => toggle(src)} />
               <span className="text-sm">{src}</span>
@@ -407,9 +409,9 @@ const SourcesDialog = ({ open, onOpenChange, initial, onSave, saving }: any) => 
   );
 };
 
-const ScriptDialog = ({ open, onOpenChange, initial, tenantName, onSave, saving }: any) => {
-  const defaultGreeting = `Hi {{lead_first_name}}, this is the team at ${tenantName}. Thanks for reaching out — I can get you on the calendar in the next 24 hours. What time works best?`;
-  const [greeting, setGreeting] = useState(initial?.greeting || defaultGreeting);
+const ScriptDialog = ({ open, onOpenChange, initial, tenantName, defaultGreeting, onSave, saving }: any) => {
+  const fallback = `Hi {{lead_first_name}}, this is the team at ${tenantName}. Thanks for reaching out — I can get you on the calendar in the next 24 hours. What time works best?`;
+  const [greeting, setGreeting] = useState(initial?.greeting || defaultGreeting || fallback);
   const [bookingLink, setBookingLink] = useState(initial?.booking_link || "");
   return (
     <Dialog open={open} onOpenChange={guardedClose(saving, onOpenChange)}>
