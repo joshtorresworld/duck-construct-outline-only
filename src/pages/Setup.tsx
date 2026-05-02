@@ -32,6 +32,7 @@ import {
   Loader2,
 } from "lucide-react";
 import { getIndustryConfig, renderGreeting } from "@/lib/industry-config";
+import { FEATURE_FLAGS, anyCalendarEnabled } from "@/lib/feature-flags";
 
 const SavingButton = ({ saving, children, ...props }: any) => (
   <Button {...props} disabled={props.disabled || saving}>
@@ -45,6 +46,12 @@ const guardedClose = (saving: boolean, onOpenChange: (o: boolean) => void) => (o
   if (saving && !o) return;
   onOpenChange(o);
 };
+
+const PreviewBanner = ({ children }: { children: React.ReactNode }) => (
+  <div className="rounded-sm border border-amber-300/60 bg-amber-50 dark:bg-amber-950/30 dark:border-amber-700/40 px-3 py-2 text-xs text-amber-900 dark:text-amber-200">
+    <span className="font-semibold">Preview mode:</span> {children}
+  </div>
+);
 
 type StepKey = "phone" | "calendar" | "crm" | "sources" | "script";
 
