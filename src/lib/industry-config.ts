@@ -179,9 +179,9 @@ export const renderGreeting = (
   template: string,
   vars: { tenantName: string; leadFirstName?: string },
 ): string => {
-  let out = template.replaceAll("{{tenant_name}}", vars.tenantName);
+  let out = template.split("{{tenant_name}}").join(vars.tenantName);
   if (vars.leadFirstName !== undefined) {
-    out = out.replaceAll("{{lead_first_name}}", vars.leadFirstName);
+    out = out.split("{{lead_first_name}}").join(vars.leadFirstName);
   }
   return out;
 };
