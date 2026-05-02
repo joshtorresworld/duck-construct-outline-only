@@ -22,9 +22,6 @@ const Navbar = () => {
           <a href="/integrations" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
             Integrations
           </a>
-          <a href="/zantaz" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
-            Partners
-          </a>
           <a
             href="/login"
             className="text-sm text-muted-foreground hover:text-foreground transition-colors"
