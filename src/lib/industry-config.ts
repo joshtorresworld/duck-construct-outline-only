@@ -171,31 +171,18 @@ export const getIndustryConfig = (industry: string | null | undefined): Industry
   return INDUSTRY_CONFIG[key] ?? FALLBACK;
 };
 
-import { renderGreeting } from "./industry-config";
+/**
+ * Substitute {{tenant_name}} and {{lead_first_name}} placeholders in a greeting template.
+ * Leaves unknown placeholders untouched (useful for preview/draft mode).
+ */
+export const renderGreeting = (
+  template: string,
+  vars: { tenantName: string; leadFirstName?: string },
+): string => {
+  let out = template.replaceAll("{{tenant_name}}", vars.tenantName);
+  if (vars.leadFirstName !== undefined) {
+    out = out.replaceAll("{{lead_first_name}}", vars.leadFirstName);
+  }
+  return out;
+};
 
-describe("renderGreeting", () => {
-  it("substitutes tenant_name", () => {
-    expect(renderGreeting("Hi from {{tenant_name}}", { tenantName: "Trump Spa" })).toBe("Hi from Trump Spa");
-  });
-
-  it("substitutes lead_first_name when provided", () => {
-    expect(
-      renderGreeting("Hi {{lead_first_name}} at {{tenant_name}}", {
-        tenantName: "Trump Spa",
-        leadFirstName: "Sam",
-      }),
-    ).toBe("Hi Sam at Trump Spa");
-  });
-
-  it("leaves lead_first_name placeholder when not provided (preview mode)", () => {
-    expect(
-      renderGreeting("Hi {{lead_first_name}} at {{tenant_name}}", {
-        tenantName: "Trump Spa",
-      }),
-    ).toBe("Hi {{lead_first_name}} at Trump Spa");
-  });
-
-  it("substitutes all occurrences of each placeholder", () => {
-    expect(renderGreeting("{{tenant_name}} – {{tenant_name}}", { tenantName: "X" })).toBe("X – X");
-  });
-});
