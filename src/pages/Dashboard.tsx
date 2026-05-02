@@ -17,6 +17,7 @@ import {
   Plug,
   AlertCircle,
 } from "lucide-react";
+import { isLiteMode, isSetupComplete, type TenantSettings } from "@/lib/setup-status";
 
 type Stats = {
   leadsThisWeek: number;
@@ -38,6 +39,27 @@ const Dashboard = () => {
     revenueThisMonthCents: 0,
   });
   const [loading, setLoading] = useState(true);
+  // Fresh settings pulled directly from the DB on every dashboard mount/refresh,
+  // so the "Finish setup" banner reflects the latest saved state — not a stale
+  // copy from the auth context cache.
+  const [freshSettings, setFreshSettings] = useState<TenantSettings | null>(null);
+
+  useEffect(() => {
+    if (!tenant) return;
+    let cancelled = false;
+    supabase
+      .from("tenants")
+      .select("settings")
+      .eq("id", tenant.id)
+      .maybeSingle()
+      .then(({ data }) => {
+        if (cancelled) return;
+        setFreshSettings(((data?.settings as TenantSettings) || {}));
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, [tenant?.id]);
 
   useEffect(() => {
     if (!tenant) return;
@@ -92,17 +114,13 @@ const Dashboard = () => {
     Math.ceil((new Date(tenant.trial_ends_at).getTime() - Date.now()) / (1000 * 60 * 60 * 24))
   );
 
-  // Setup completion check — mirrors Setup.tsx logic
-  const settings = ((tenant as any).settings || {}) as {
-    lite_mode?: boolean;
-    phone?: { number?: string };
-    calendar?: { email?: string };
-    script?: { greeting?: string };
-  };
-  const liteMode = !!settings.lite_mode;
-  const setupComplete = liteMode
-    ? !!settings.phone?.number && !!settings.script?.greeting
-    : !!settings.phone?.number && !!settings.calendar?.email && !!settings.script?.greeting;
+  // Setup completion — prefer the freshly-fetched settings, fall back to the
+  // cached tenant.settings while the fresh fetch is in flight. Uses the shared
+  // helper so /setup and /dashboard can never disagree.
+  const settings: TenantSettings =
+    freshSettings ?? (((tenant as any).settings || {}) as TenantSettings);
+  const liteMode = isLiteMode(settings);
+  const setupComplete = isSetupComplete(settings);
 
   return (
     <div className="min-h-screen bg-surface-sunken">
