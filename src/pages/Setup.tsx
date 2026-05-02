@@ -293,6 +293,11 @@ const PhoneDialog = ({ open, onOpenChange, initial, onSave, saving }: any) => {
             Enter the phone number your AI agent will use to text leads. We'll provision a Twilio number on your behalf when you go live.
           </DialogDescription>
         </DialogHeader>
+        {!FEATURE_FLAGS.twilio && (
+          <PreviewBanner>
+            Twilio integration is not yet wired. Your number is saved for testing, but no SMS will actually send until Twilio is enabled.
+          </PreviewBanner>
+        )}
         <div className="space-y-3 py-2">
           <Label htmlFor="phone">Business sending number</Label>
           <Input id="phone" placeholder="+1 (555) 123-4567" value={number} onChange={(e) => setNumber(e.target.value)} />
@@ -316,9 +321,14 @@ const CalendarDialog = ({ open, onOpenChange, initial, onSave, saving }: any) =>
         <DialogHeader>
           <DialogTitle>Connect calendar</DialogTitle>
           <DialogDescription>
-            Tell us which calendar to book appointments into. OAuth link will be sent to your inbox to complete the connection.
+            Tell us which calendar to book appointments into. When calendar OAuth is enabled, we'll email you a connection link to finish authorizing.
           </DialogDescription>
         </DialogHeader>
+        {!anyCalendarEnabled() && (
+          <PreviewBanner>
+            Calendar OAuth is not yet wired. Your email and provider are saved, but no link will be sent and no events will book until OAuth is enabled.
+          </PreviewBanner>
+        )}
         <div className="space-y-3 py-2">
           <div>
             <Label>Provider</Label>
@@ -357,6 +367,11 @@ const CrmDialog = ({ open, onOpenChange, initial, onSave, saving }: any) => {
             Pick your system of record. We'll sync leads, notes, and appointments bidirectionally.
           </DialogDescription>
         </DialogHeader>
+        {!FEATURE_FLAGS.crm && (
+          <PreviewBanner>
+            CRM sync is not yet wired. Credentials are saved (encrypted in the database) but they aren't validated against the CRM API and no records will sync until the integration is enabled.
+          </PreviewBanner>
+        )}
         <div className="space-y-3 py-2">
           <div>
             <Label>System</Label>
