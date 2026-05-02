@@ -2,12 +2,7 @@
 // Used by /setup and /dashboard so a real estate team and a dental practice see
 // the right lead sources, opening SMS, and banner copy — without forking pages.
 
-export type IndustryKey =
-  | "real_estate"
-  | "dental"
-  | "roofing"
-  | "auto_repair"
-  | "salon_spa";
+export type IndustryKey = "real_estate" | "dental" | "roofing" | "auto_repair" | "salon_spa";
 
 export type IndustryConfig = {
   label: string;
@@ -53,14 +48,7 @@ export const INDUSTRY_CONFIG: Record<IndustryKey, IndustryConfig> = {
     label: "Real Estate & Property Management",
     serviceNoun: "showing",
     serviceNounPlural: "showings",
-    leadSources: [
-      "Web form",
-      "Zillow",
-      "Realtor.com",
-      "Google LSA",
-      "Facebook Lead Ads",
-      "Phone calls",
-    ],
+    leadSources: ["Web form", "Zillow", "Realtor.com", "Google LSA", "Facebook Lead Ads", "Phone calls"],
     defaultGreetingTemplate:
       "Hi {{lead_first_name}}, this is {{tenant_name}} — saw you were looking at the property. I can get you in for a showing in the next 24 hours. What time works best, today or tomorrow?",
     liteModeBlurb:
@@ -82,14 +70,7 @@ export const INDUSTRY_CONFIG: Record<IndustryKey, IndustryConfig> = {
     label: "Dental & Optometry Practice",
     serviceNoun: "appointment",
     serviceNounPlural: "appointments",
-    leadSources: [
-      "Web form",
-      "Google",
-      "Yelp",
-      "Healthgrades",
-      "Phone calls",
-      "Patient referrals",
-    ],
+    leadSources: ["Web form", "Google", "Yelp", "Healthgrades", "Phone calls", "Patient referrals"],
     defaultGreetingTemplate:
       "Hi {{lead_first_name}}, this is {{tenant_name}}. Thanks for reaching out — we have openings this week. Are you looking for a cleaning, exam, or something specific?",
     liteModeBlurb:
@@ -141,14 +122,7 @@ export const INDUSTRY_CONFIG: Record<IndustryKey, IndustryConfig> = {
     label: "Auto Repair Shop",
     serviceNoun: "service appointment",
     serviceNounPlural: "service appointments",
-    leadSources: [
-      "Web form",
-      "Google",
-      "Yelp",
-      "Phone calls",
-      "Repeat customers",
-      "Tow-in referrals",
-    ],
+    leadSources: ["Web form", "Google", "Yelp", "Phone calls", "Repeat customers", "Tow-in referrals"],
     defaultGreetingTemplate:
       "Hi {{lead_first_name}}, this is {{tenant_name}}. Got your request — what's going on with the vehicle and when do you need it back? I can usually get you in within 24–48 hours.",
     liteModeBlurb:
@@ -170,15 +144,7 @@ export const INDUSTRY_CONFIG: Record<IndustryKey, IndustryConfig> = {
     label: "Salon & Spa",
     serviceNoun: "appointment",
     serviceNounPlural: "appointments",
-    leadSources: [
-      "Web form",
-      "Instagram DMs",
-      "Google",
-      "Yelp",
-      "Walk-ins",
-      "Phone calls",
-      "Repeat clients",
-    ],
+    leadSources: ["Web form", "Instagram DMs", "Google", "Yelp", "Walk-ins", "Phone calls", "Repeat clients"],
     defaultGreetingTemplate:
       "Hi {{lead_first_name}}, this is {{tenant_name}}. Thanks for reaching out — what service were you thinking and which day works best? I can usually get you in this week.",
     liteModeBlurb:
@@ -205,8 +171,31 @@ export const getIndustryConfig = (industry: string | null | undefined): Industry
   return INDUSTRY_CONFIG[key] ?? FALLBACK;
 };
 
-/** Substitute {{lead_first_name}} and {{tenant_name}} placeholders. */
-export const renderGreeting = (
-  template: string,
-  vars: { tenantName: string }
-): string => template.replace(/\{\{tenant_name\}\}/g, vars.tenantName);
+import { renderGreeting } from "./industry-config";
+
+describe("renderGreeting", () => {
+  it("substitutes tenant_name", () => {
+    expect(renderGreeting("Hi from {{tenant_name}}", { tenantName: "Trump Spa" })).toBe("Hi from Trump Spa");
+  });
+
+  it("substitutes lead_first_name when provided", () => {
+    expect(
+      renderGreeting("Hi {{lead_first_name}} at {{tenant_name}}", {
+        tenantName: "Trump Spa",
+        leadFirstName: "Sam",
+      }),
+    ).toBe("Hi Sam at Trump Spa");
+  });
+
+  it("leaves lead_first_name placeholder when not provided (preview mode)", () => {
+    expect(
+      renderGreeting("Hi {{lead_first_name}} at {{tenant_name}}", {
+        tenantName: "Trump Spa",
+      }),
+    ).toBe("Hi {{lead_first_name}} at Trump Spa");
+  });
+
+  it("substitutes all occurrences of each placeholder", () => {
+    expect(renderGreeting("{{tenant_name}} – {{tenant_name}}", { tenantName: "X" })).toBe("X – X");
+  });
+});
