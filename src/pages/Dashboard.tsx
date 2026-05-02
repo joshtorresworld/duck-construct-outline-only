@@ -293,4 +293,60 @@ const KpiCard = ({
   </Card>
 );
 
+/**
+ * Dev-only industry switcher. Only rendered when `import.meta.env.DEV` is true,
+ * so it never ships to production. Lets QA flip the current tenant's industry
+ * to verify all 5 Revenue Playbook industries (real_estate, dental, roofing,
+ * auto_repair, salon_spa) render correctly without spinning up new tenants.
+ */
+const DevIndustrySwitcher = ({
+  tenantId,
+  currentIndustry,
+  onChanged,
+}: {
+  tenantId: string;
+  currentIndustry: string;
+  onChanged: () => Promise<void>;
+}) => {
+  const [saving, setSaving] = useState(false);
+  const keys = Object.keys(INDUSTRY_CONFIG) as IndustryKey[];
+
+  const handleChange = async (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const next = e.target.value;
+    if (next === currentIndustry) return;
+    setSaving(true);
+    const { error } = await supabase
+      .from("tenants")
+      .update({ industry: next as never })
+      .eq("id", tenantId);
+    setSaving(false);
+    if (error) {
+      toast({ title: "Switch failed", description: error.message, variant: "destructive" });
+      return;
+    }
+    await onChanged();
+    toast({ title: `Industry → ${INDUSTRY_CONFIG[next as IndustryKey]?.label ?? next}` });
+  };
+
+  return (
+    <select
+      aria-label="Dev: switch industry"
+      value={currentIndustry}
+      disabled={saving}
+      onChange={handleChange}
+      className="text-xs h-7 rounded-sm border border-dashed border-warning/50 bg-warning/5 px-2 text-foreground focus:outline-none focus:ring-1 focus:ring-warning"
+      title="Dev only — switches this tenant's industry"
+    >
+      {keys.map((k) => (
+        <option key={k} value={k}>
+          DEV: {INDUSTRY_CONFIG[k].label}
+        </option>
+      ))}
+      {!keys.includes(currentIndustry as IndustryKey) && (
+        <option value={currentIndustry}>DEV: {currentIndustry} (other)</option>
+      )}
+    </select>
+  );
+};
+
 export default Dashboard;
