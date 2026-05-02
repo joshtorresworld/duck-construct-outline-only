@@ -18,7 +18,8 @@ import {
   AlertCircle,
 } from "lucide-react";
 import { isLiteMode, isSetupComplete, type TenantSettings } from "@/lib/setup-status";
-import { getIndustryConfig } from "@/lib/industry-config";
+import { getIndustryConfig, INDUSTRY_CONFIG, type IndustryKey } from "@/lib/industry-config";
+import { toast } from "@/hooks/use-toast";
 
 type Stats = {
   leadsThisWeek: number;
