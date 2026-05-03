@@ -24,7 +24,7 @@ import Onboard from "./pages/Onboard.tsx";
 import Dashboard from "./pages/Dashboard.tsx";
 import Setup from "./pages/Setup.tsx";
 import QaIndustries from "./pages/QaIndustries.tsx";
-import RlsCheck from "./pages/RlsCheck.tsx";
+
 import NotFound from "./pages/NotFound.tsx";
 
 const queryClient = new QueryClient();
@@ -59,7 +59,6 @@ const App = () => (
             <Route path="/dashboard" element={<RequireTenant><Dashboard /></RequireTenant>} />
             <Route path="/setup" element={<RequireTenant><Setup /></RequireTenant>} />
             <Route path="/qa/industries" element={<QaIndustries />} />
-            <Route path="/qa/rls" element={<RequireAuth><RlsCheck /></RequireAuth>} />
 
             <Route path="*" element={<NotFound />} />
           </Routes>
