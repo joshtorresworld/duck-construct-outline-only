@@ -210,6 +210,7 @@ const industries: IndustryCard[] = [
     stats: [{ label: "Lead Conversion", value: "3× lift" }, { label: "Wire Fraud", value: "Eliminated" }],
     color: "text-success", bgColor: "bg-success/10",
     component: lazy(() => import("@/components/blueprints/RealEstateBlueprint")),
+    live: true,
   },
   {
     id: "accounting", icon: Calculator, title: "Accounting & Tax", shortTitle: "Accounting",
