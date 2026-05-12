@@ -81,6 +81,8 @@ interface IndustryCard {
   color: string;
   bgColor: string;
   component: React.LazyExoticComponent<React.ComponentType>;
+  /** True when the self-serve SaaS product ships today for this industry. False/undefined = blueprint-only (custom engagement). */
+  live?: boolean;
 }
 
 const industries: IndustryCard[] = [
