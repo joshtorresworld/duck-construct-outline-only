@@ -159,6 +159,7 @@ const industries: IndustryCard[] = [
     color: "text-accent", bgColor: "bg-accent/10",
     component: lazy(() => import("@/components/blueprints/SalonBlueprint")),
     live: true,
+  },
   {
     id: "mobile-detailing", icon: Car, title: "Mobile Detailing", shortTitle: "Detailing",
     description: "Geographic clustering, vehicle-based pricing, membership subscriptions, and before/after content automation.",
