@@ -498,6 +498,8 @@ const Industries = () => {
             {categories.map((cat) => {
               const count = cat.id === "all"
                 ? industries.length
+                : cat.id === "live"
+                ? industries.filter((i) => i.live).length
                 : cat.id === "low-entry" || cat.id === "mid-market" || cat.id === "middle-market"
                 ? industries.filter((i) => i.tier === cat.id).length
                 : industries.filter((i) => i.category === cat.id).length;
