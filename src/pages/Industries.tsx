@@ -324,6 +324,7 @@ const industries: IndustryCard[] = [
     stats: [{ label: "No-Show Rate", value: "3%" }, { label: "Clean Claims", value: "95%+" }],
     color: "text-primary", bgColor: "bg-primary/10",
     component: lazy(() => import("@/components/blueprints/DentalOptometryBlueprint")),
+    live: true,
   },
   {
     id: "home-healthcare", icon: HeartPulse, title: "Home Healthcare & Care", shortTitle: "Home Care",
