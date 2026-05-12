@@ -235,6 +235,7 @@ const industries: IndustryCard[] = [
     stats: [{ label: "Bay Utilization", value: "65→85%" }, { label: "FTC Compliance", value: "30 days" }],
     color: "text-success", bgColor: "bg-success/10",
     component: lazy(() => import("@/components/blueprints/AutoRepairBlueprint")),
+    live: true,
   },
   {
     id: "insurance", icon: Umbrella, title: "Insurance Agencies", shortTitle: "Insurance",
