@@ -51,10 +51,11 @@ import { Link } from "react-router-dom";
 
 /* ── Category definitions ────────────────────────────── */
 
-type Category = "all" | "low-entry" | "mid-market" | "middle-market" | "service" | "professional" | "trades" | "consulting";
+type Category = "all" | "live" | "low-entry" | "mid-market" | "middle-market" | "service" | "professional" | "trades" | "consulting";
 
 const categories: { id: Category; label: string; description: string }[] = [
-  { id: "all", label: "All Industries", description: "Browse all 37 industry blueprints" },
+  { id: "all", label: "All Industries", description: "Browse all 37 industries — 5 live products, 32 blueprints available as custom engagements" },
+  { id: "live", label: "Live Now", description: "Self-serve SaaS product is built and shipping today — onboard in minutes" },
   { id: "low-entry", label: "Optimize · $500–$2K", description: "Solo operators and small teams — 1–10 employees, immediate ROI from eliminating friction" },
   { id: "mid-market", label: "Augment · $2K–$8K", description: "Growing businesses — 10–200 employees, AI agents that multiply capacity and intelligence" },
   { id: "middle-market", label: "Innovate · $5K–$15K", description: "Market leaders — 100–1000 employees, enterprise-grade AI transformation" },
