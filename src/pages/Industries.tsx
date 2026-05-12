@@ -177,6 +177,7 @@ const industries: IndustryCard[] = [
     stats: [{ label: "Cash Flow Lift", value: "$40K+" }, { label: "Crew Hours Saved", value: "15+/wk" }],
     color: "text-warning", bgColor: "bg-warning/10",
     component: lazy(() => import("@/components/RoofingBlueprint")),
+    live: true,
   },
   {
     id: "healthcare", icon: Heart, title: "Healthcare & Dental", shortTitle: "Healthcare",
