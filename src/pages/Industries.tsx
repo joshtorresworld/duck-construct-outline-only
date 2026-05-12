@@ -465,9 +465,21 @@ const Industries = () => {
             >
               Find your industry. Pick your tier. See the transformation.
             </motion.h1>
-            <motion.p {...anim(0.1)} className="text-lg text-muted-foreground max-w-xl mb-8">
-              From solo operators to middle-market enterprises — each blueprint maps exact before-and-after
-              workflows, 8-week implementation plans, and guaranteed ROI. Optimize, Augment, or Innovate.
+            <motion.p {...anim(0.1)} className="text-lg text-muted-foreground max-w-xl mb-6">
+              <span className="font-medium text-foreground">5 industries are live as self-serve product today</span> —
+              Real Estate, Dental & Optometry, Roofing, Auto Repair, and Salon & Spa. The other 32 are full
+              implementation blueprints we deliver as custom 8-week engagements.
+            </motion.p>
+            <motion.div {...anim(0.12)} className="flex flex-wrap items-center gap-2 mb-6 text-xs text-muted-foreground">
+              <span className="inline-flex items-center gap-1.5 rounded-sm bg-success/10 px-2 py-1 text-success font-semibold">
+                <span className="w-1.5 h-1.5 rounded-full bg-success" /> Live Product
+              </span>
+              <span>= sign up and start in minutes.</span>
+              <span className="mx-1 text-foreground/20">·</span>
+              <span className="inline-flex items-center gap-1.5 rounded-sm bg-foreground/5 px-2 py-1 text-foreground font-semibold border border-foreground/10">
+                Blueprint
+              </span>
+              <span>= custom build, 8-week rollout.</span>
             </motion.p>
             <motion.div {...anim(0.15)} className="flex flex-wrap items-center gap-3">
               <a
