@@ -639,16 +639,59 @@ const Industries = () => {
                   <span className={`text-[10px] font-semibold rounded-sm px-1.5 py-0.5 ${tierBadge[expandedData.tier].color}`}>
                     {tierBadge[expandedData.tier].label}
                   </span>
-                  <span className="text-xs text-muted-foreground">— Full Blueprint</span>
+                  {expandedData.live ? (
+                    <span className="inline-flex items-center gap-1 text-[10px] font-semibold rounded-sm px-1.5 py-0.5 bg-success/15 text-success">
+                      <span className="w-1 h-1 rounded-full bg-success" /> Live Product
+                    </span>
+                  ) : (
+                    <span className="text-[10px] font-semibold rounded-sm px-1.5 py-0.5 bg-foreground/5 text-muted-foreground border border-foreground/10">
+                      Blueprint · Custom Engagement
+                    </span>
+                  )}
                 </div>
                 <button
                   onClick={() => setExpandedIndustry(null)}
                   className="text-xs font-medium text-muted-foreground hover:text-foreground transition-colors px-3 py-1 rounded-sm hover:bg-secondary"
                 >
-                  Close Blueprint ✕
+                  Close ✕
                 </button>
               </div>
             </div>
+
+            {/* Status banner */}
+            {expandedData.live ? (
+              <div className="bg-success/5 border-b border-success/10">
+                <div className="container py-3 flex items-center justify-between flex-wrap gap-3">
+                  <p className="text-xs text-foreground">
+                    <span className="font-semibold text-success">Live now —</span> the self-serve product
+                    is built and shipping for {expandedData.shortTitle}. Onboarding takes minutes.
+                  </p>
+                  <Link
+                    to="/onboarding"
+                    className="inline-flex items-center gap-1.5 rounded-sm bg-success px-3 py-1.5 text-xs font-semibold text-background hover:opacity-90 transition-opacity"
+                  >
+                    Start onboarding <ArrowRight className="w-3 h-3" strokeWidth={2} />
+                  </Link>
+                </div>
+              </div>
+            ) : (
+              <div className="bg-foreground/[0.03] border-b border-foreground/10">
+                <div className="container py-3 flex items-center justify-between flex-wrap gap-3">
+                  <p className="text-xs text-muted-foreground max-w-2xl">
+                    <span className="font-semibold text-foreground">Blueprint, not yet self-serve.</span> The
+                    workflows below are delivered as a custom 8-week engagement — same agentic framework,
+                    tuned to your stack. Self-serve product available today for Real Estate, Dental,
+                    Roofing, Auto Repair, and Salon & Spa.
+                  </p>
+                  <a
+                    href="mailto:patrick@rowofducks.ai"
+                    className="inline-flex items-center gap-1.5 rounded-sm bg-foreground px-3 py-1.5 text-xs font-semibold text-background hover:opacity-90 transition-opacity shrink-0"
+                  >
+                    Request engagement <ArrowRight className="w-3 h-3" strokeWidth={2} />
+                  </a>
+                </div>
+              </div>
+            )}
 
             {/* Blueprint content */}
             <Suspense
