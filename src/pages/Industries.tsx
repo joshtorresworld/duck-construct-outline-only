@@ -480,7 +480,7 @@ const Industries = () => {
                 Blueprint
               </span>
               <span>= custom build, 8-week rollout.</span>
-            </motion.p>
+            </motion.div>
             <motion.div {...anim(0.15)} className="flex flex-wrap items-center gap-3">
               <a
                 href="mailto:patrick@rowofducks.ai"
