@@ -576,6 +576,15 @@ const Industries = () => {
                         <industry.icon className="w-5 h-5" strokeWidth={1.5} />
                       </div>
                       <div className="flex items-center gap-1.5">
+                        {industry.live ? (
+                          <span className="inline-flex items-center gap-1 text-[10px] font-semibold rounded-sm px-1.5 py-0.5 bg-success/15 text-success">
+                            <span className="w-1 h-1 rounded-full bg-success" /> Live
+                          </span>
+                        ) : (
+                          <span className="text-[10px] font-semibold rounded-sm px-1.5 py-0.5 bg-foreground/5 text-muted-foreground border border-foreground/10">
+                            Blueprint
+                          </span>
+                        )}
                         <span className={`text-[10px] font-semibold rounded-sm px-1.5 py-0.5 ${tierBadge[industry.tier].color}`}>
                           {tierBadge[industry.tier].label}
                         </span>
