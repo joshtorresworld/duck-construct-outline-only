@@ -428,6 +428,8 @@ const Industries = () => {
 
   const filtered = activeCategory === "all"
     ? industries
+    : activeCategory === "live"
+    ? industries.filter((i) => i.live)
     : activeCategory === "low-entry" || activeCategory === "mid-market" || activeCategory === "middle-market"
     ? industries.filter((i) => i.tier === activeCategory)
     : industries.filter((i) => i.category === activeCategory);
