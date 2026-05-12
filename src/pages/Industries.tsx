@@ -456,7 +456,7 @@ const Industries = () => {
             <motion.div {...anim()} className="mb-4">
               <span className="inline-flex items-center gap-1.5 rounded-sm bg-primary/10 px-2.5 py-1 text-xs font-medium text-foreground">
                 <span className="w-1.5 h-1.5 rounded-full bg-primary" />
-                37 Industry Blueprints · 3 Tiers
+                5 Live Products · 32 Blueprints · 3 Tiers
               </span>
             </motion.div>
             <motion.h1
